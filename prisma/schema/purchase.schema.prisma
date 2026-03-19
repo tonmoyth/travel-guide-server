@@ -1,0 +1,20 @@
+// Purchase model - User purchases of guides
+model Purchase {
+    id            String        @id @default(cuid())
+    memberId      String // FK to Better Auth user
+    guideId       String
+    amount        Float
+    paymentStatus PaymentStatus @default(PENDING)
+    paymentMethod String // CREDIT_CARD, DEBIT_CARD, MOBILE_WALLET, etc.
+    transactionId String?
+    createdAt     DateTime      @default(now())
+    updatedAt     DateTime      @updatedAt
+
+    // Relations
+    member User        @relation(fields: [memberId], references: [id], onDelete: Cascade)
+    guide  TravelGuide @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+    @@index([memberId])
+    @@index([guideId])
+    @@map("purchases")
+}

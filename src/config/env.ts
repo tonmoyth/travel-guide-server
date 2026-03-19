@@ -1,0 +1,49 @@
+/*
+JWT_SECRET_KEY=veryscretkey
+JWT_EXPIRES_IN=1d
+JWT_REFRESH_SECRET_KEY=veryscretrefreshkey
+JWT_REFRESH_EXPIRES_IN=7d
+*/
+
+interface IEnvReturnType {
+  PORT: string;
+  DATABASE_URL: string;
+  BETTER_AUTH_SECRET: string;
+  BETTER_AUTH_URL: string;
+  JWT_SECRET_KEY: string;
+  JWT_EXPIRES_IN: string;
+  JWT_REFRESH_SECRET_KEY: string;
+  JWT_REFRESH_EXPIRES_IN: string;
+}
+
+const envConfig = (): IEnvReturnType => {
+  const envName = [
+    "PORT",
+    "DATABASE_URL",
+    "BETTER_AUTH_SECRET",
+    "BETTER_AUTH_URL",
+    "JWT_SECRET_KEY",
+    "JWT_EXPIRES_IN",
+    "JWT_REFRESH_SECRET_KEY",
+    "JWT_REFRESH_EXPIRES_IN",
+  ];
+
+  envName.forEach((element) => {
+    if (!process.env[element]) {
+      throw new Error(`Missing environment variable: ${element}`);
+    }
+  });
+
+  return {
+    PORT: process.env.PORT!,
+    DATABASE_URL: process.env.DATABASE_URL!,
+    BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET!,
+    BETTER_AUTH_URL: process.env.BETTER_AUTH_URL!,
+    JWT_SECRET_KEY: process.env.JWT_SECRET_KEY!,
+    JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN!,
+    JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN!,
+    JWT_REFRESH_SECRET_KEY: process.env.JWT_REFRESH_SECRET_KEY!,
+  };
+};
+
+export const envVeriables = envConfig();

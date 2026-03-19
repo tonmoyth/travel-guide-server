@@ -1,0 +1,17 @@
+// Favorite model - User favorites guides
+model Favorite {
+    id        String   @id @default(cuid())
+    memberId  String // FK to Better Auth user
+    guideId   String
+    createdAt DateTime @default(now())
+
+    // Relations
+    member User        @relation(fields: [memberId], references: [id], onDelete: Cascade)
+    guide  TravelGuide @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+    // Ensure unique favorite per user per guide
+    @@unique([memberId, guideId])
+    @@index([memberId])
+    @@index([guideId])
+    @@map("favorites")
+}

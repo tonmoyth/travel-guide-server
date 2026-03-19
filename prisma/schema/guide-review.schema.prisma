@@ -1,0 +1,18 @@
+// Guide Review model - Admin reviews guides
+model GuideReview {
+    id         String            @id @default(cuid())
+    guideId    String
+    reviewedBy String // FK to Better Auth user (admin)
+    status     GuideReviewStatus
+    feedback   String?
+    createdAt  DateTime          @default(now())
+    updatedAt  DateTime          @updatedAt
+
+    // Relations
+    reviewer User        @relation(fields: [reviewedBy], references: [id], onDelete: Cascade)
+    guide    TravelGuide @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+    @@index([guideId])
+    @@index([reviewedBy])
+    @@map("guide_reviews")
+}

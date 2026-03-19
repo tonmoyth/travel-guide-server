@@ -1,0 +1,15 @@
+// Guide Media model - Media files for guides
+model GuideMedia {
+    id        String    @id @default(cuid())
+    guideId   String
+    type      MediaType
+    url       String
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+
+    // Relations
+    guide TravelGuide @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+    @@index([guideId])
+    @@map("guide_medias")
+}

@@ -1,0 +1,16 @@
+// Category model for guide categories
+model Category {
+    id          String    @id @default(cuid())
+    slug        String    @unique
+    title       String
+    description String?
+    isDeleted   Boolean   @default(false)
+    deletedAt   DateTime?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+
+    // Relations
+    guides TravelGuide[]
+
+    @@map("categories")
+}
