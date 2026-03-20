@@ -27,4 +27,11 @@ router.get(
 
 router.post("/logout", MemberController.logout);
 
+router.post("/getNewRefreshToken", MemberController.getNewRefreshToken);
+
+// Google OAuth
+router.get("/login/google", MemberController.googleLogin);
+router.get("/google/success", MemberController.googleLoginSuccess);
+router.get("/google/error", MemberController.handleGoogleError);
+
 export const MemberRoutes = router;

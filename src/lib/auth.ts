@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { envVeriables } from "../config/env";
+import { MemberRole } from "../../prisma/generated/prisma/enums";
 
 export const auth = betterAuth({
   baseURL: envVeriables.BETTER_AUTH_URL,
@@ -11,6 +12,25 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
+
+  socialProviders: {
+    google: {
+      clientId: envVeriables.GOOGLE_CLIENT_ID as string,
+      clientSecret: envVeriables.GOOGLE_CLIENT_SECRET as string,
+      mapProfileToUser: () => {
+        return {
+          role: MemberRole.MEMBER,
+          isDeleted: false,
+          deletedAt: null,
+        };
+      },
+    },
+  },
+
+  redirects: {
+    signIn: `${envVeriables.BETTER_AUTH_URL}/api/v1/auth/google/success`,
+  },
+
   user: {
     additionalFields: {
       profilePhoto: { type: "string", required: false },

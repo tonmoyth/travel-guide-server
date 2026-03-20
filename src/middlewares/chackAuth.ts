@@ -29,8 +29,6 @@ const chackAuth = (...roles: MemberRole[]) => {
         },
       });
 
-      console.log("Session lookup result:", isExistUser);
-
       if (!isExistUser || !isExistUser.user) {
         throw new AppError(
           401,

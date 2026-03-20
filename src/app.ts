@@ -13,7 +13,7 @@ app.use(cookieParser());
 // auth routes
 app.use("/api/auth", auth.handler);
 
-// application routes
+// application routes 
 app.use("/api/v1", routes);
 
 app.get("/", (req: Request, res: Response) => {
