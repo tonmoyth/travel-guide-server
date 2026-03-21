@@ -11,7 +11,6 @@ const chackAuth = (...roles: MemberRole[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const session = cookieUtil.getCookie(req, "better-auth.session-token");
-      console.log("Session token from cookie or header:", session);
 
       if (!session) {
         throw new AppError(

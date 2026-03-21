@@ -1,24 +1,33 @@
 import express from "express";
-import validateRequest from "../../middlewares/validateRequest";
+
+import chackAuth from "../../middlewares/chackAuth";
 import { TravelGuideController } from "./travel-guide.controller";
 import { TravelGuideValidationSchema } from "./travel-guide.validation";
+import { MemberRole } from "../../../prisma/generated/prisma/enums";
+import validateRequest from "../../middlewares/validateRequest";
 
 const router = express.Router();
 
-router.get("/", TravelGuideController.getAll);
-router.get("/:id", TravelGuideController.getById);
+router.get("/", chackAuth(), TravelGuideController.getAll);
+router.get("/:id", chackAuth(), TravelGuideController.getById);
 
 router.post(
   "/",
+  chackAuth(MemberRole.MEMBER),
   validateRequest(TravelGuideValidationSchema.create),
   TravelGuideController.create,
 );
 
 router.put(
   "/:id",
+  chackAuth(MemberRole.MEMBER),
   validateRequest(TravelGuideValidationSchema.update),
   TravelGuideController.update,
 );
-router.delete("/:id", TravelGuideController.remove);
+router.delete(
+  "/:id",
+  chackAuth(MemberRole.MEMBER),
+  TravelGuideController.remove,
+);
 
 export const TravelGuideRoutes = router;
