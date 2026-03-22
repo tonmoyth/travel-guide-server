@@ -8,8 +8,9 @@ const validateRequest = (schema: ZodSchema) => {
       // if (req.body.data) {
       //   req.body = JSON.parse(req.body.data);
       // }
-      console.log("Request body before validation:");
-      const parsedData = schema.safeParse(req.body.data);
+
+      const parsedData = schema.safeParse(req.body);
+      console.log(parsedData);
 
       if (!parsedData.success) {
         const errorMessages = parsedData.error.issues

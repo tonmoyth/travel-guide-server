@@ -3,6 +3,8 @@ import cors from "cors";
 import { auth } from "./lib/auth";
 import routes from "./routes";
 import cookieParser from "cookie-parser";
+import { notFound } from "./middlewares/notFound";
+import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 
 const app: Application = express();
 
@@ -21,4 +23,6 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello travel guide server!");
 });
 
+app.use(globalErrorHandler);
+app.use(notFound);
 export default app;
