@@ -40,7 +40,6 @@ export type TravelGuideMinAggregateOutputType = {
   categoryId: string | null
   title: string | null
   description: string | null
-  itinerary: string | null
   status: $Enums.GuideStatus | null
   isPaid: boolean | null
   price: number | null
@@ -57,7 +56,6 @@ export type TravelGuideMaxAggregateOutputType = {
   categoryId: string | null
   title: string | null
   description: string | null
-  itinerary: string | null
   status: $Enums.GuideStatus | null
   isPaid: boolean | null
   price: number | null
@@ -101,7 +99,6 @@ export type TravelGuideMinAggregateInputType = {
   categoryId?: true
   title?: true
   description?: true
-  itinerary?: true
   status?: true
   isPaid?: true
   price?: true
@@ -118,7 +115,6 @@ export type TravelGuideMaxAggregateInputType = {
   categoryId?: true
   title?: true
   description?: true
-  itinerary?: true
   status?: true
   isPaid?: true
   price?: true
@@ -239,7 +235,7 @@ export type TravelGuideGroupByOutputType = {
   categoryId: string
   title: string
   description: string
-  itinerary: string
+  itinerary: runtime.JsonValue | null
   status: $Enums.GuideStatus
   isPaid: boolean
   price: number | null
@@ -279,7 +275,7 @@ export type TravelGuideWhereInput = {
   categoryId?: Prisma.StringFilter<"TravelGuide"> | string
   title?: Prisma.StringFilter<"TravelGuide"> | string
   description?: Prisma.StringFilter<"TravelGuide"> | string
-  itinerary?: Prisma.StringFilter<"TravelGuide"> | string
+  itinerary?: Prisma.JsonNullableFilter<"TravelGuide">
   status?: Prisma.EnumGuideStatusFilter<"TravelGuide"> | $Enums.GuideStatus
   isPaid?: Prisma.BoolFilter<"TravelGuide"> | boolean
   price?: Prisma.FloatNullableFilter<"TravelGuide"> | number | null
@@ -304,7 +300,7 @@ export type TravelGuideOrderByWithRelationInput = {
   categoryId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  itinerary?: Prisma.SortOrder
+  itinerary?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   isPaid?: Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -332,7 +328,7 @@ export type TravelGuideWhereUniqueInput = Prisma.AtLeast<{
   categoryId?: Prisma.StringFilter<"TravelGuide"> | string
   title?: Prisma.StringFilter<"TravelGuide"> | string
   description?: Prisma.StringFilter<"TravelGuide"> | string
-  itinerary?: Prisma.StringFilter<"TravelGuide"> | string
+  itinerary?: Prisma.JsonNullableFilter<"TravelGuide">
   status?: Prisma.EnumGuideStatusFilter<"TravelGuide"> | $Enums.GuideStatus
   isPaid?: Prisma.BoolFilter<"TravelGuide"> | boolean
   price?: Prisma.FloatNullableFilter<"TravelGuide"> | number | null
@@ -357,7 +353,7 @@ export type TravelGuideOrderByWithAggregationInput = {
   categoryId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  itinerary?: Prisma.SortOrder
+  itinerary?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   isPaid?: Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -382,7 +378,7 @@ export type TravelGuideScalarWhereWithAggregatesInput = {
   categoryId?: Prisma.StringWithAggregatesFilter<"TravelGuide"> | string
   title?: Prisma.StringWithAggregatesFilter<"TravelGuide"> | string
   description?: Prisma.StringWithAggregatesFilter<"TravelGuide"> | string
-  itinerary?: Prisma.StringWithAggregatesFilter<"TravelGuide"> | string
+  itinerary?: Prisma.JsonNullableWithAggregatesFilter<"TravelGuide">
   status?: Prisma.EnumGuideStatusWithAggregatesFilter<"TravelGuide"> | $Enums.GuideStatus
   isPaid?: Prisma.BoolWithAggregatesFilter<"TravelGuide"> | boolean
   price?: Prisma.FloatNullableWithAggregatesFilter<"TravelGuide"> | number | null
@@ -397,7 +393,7 @@ export type TravelGuideCreateInput = {
   id?: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -422,7 +418,7 @@ export type TravelGuideUncheckedCreateInput = {
   categoryId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -443,7 +439,7 @@ export type TravelGuideUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -468,7 +464,7 @@ export type TravelGuideUncheckedUpdateInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -491,7 +487,7 @@ export type TravelGuideCreateManyInput = {
   categoryId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -506,7 +502,7 @@ export type TravelGuideUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -523,7 +519,7 @@ export type TravelGuideUncheckedUpdateManyInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -576,7 +572,6 @@ export type TravelGuideMaxOrderByAggregateInput = {
   categoryId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  itinerary?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isPaid?: Prisma.SortOrder
   price?: Prisma.SortOrder
@@ -593,7 +588,6 @@ export type TravelGuideMinOrderByAggregateInput = {
   categoryId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  itinerary?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isPaid?: Prisma.SortOrder
   price?: Prisma.SortOrder
@@ -792,7 +786,7 @@ export type TravelGuideCreateWithoutMemberInput = {
   id?: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -815,7 +809,7 @@ export type TravelGuideUncheckedCreateWithoutMemberInput = {
   categoryId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -867,7 +861,7 @@ export type TravelGuideScalarWhereInput = {
   categoryId?: Prisma.StringFilter<"TravelGuide"> | string
   title?: Prisma.StringFilter<"TravelGuide"> | string
   description?: Prisma.StringFilter<"TravelGuide"> | string
-  itinerary?: Prisma.StringFilter<"TravelGuide"> | string
+  itinerary?: Prisma.JsonNullableFilter<"TravelGuide">
   status?: Prisma.EnumGuideStatusFilter<"TravelGuide"> | $Enums.GuideStatus
   isPaid?: Prisma.BoolFilter<"TravelGuide"> | boolean
   price?: Prisma.FloatNullableFilter<"TravelGuide"> | number | null
@@ -882,7 +876,7 @@ export type TravelGuideCreateWithoutCategoryInput = {
   id?: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -905,7 +899,7 @@ export type TravelGuideUncheckedCreateWithoutCategoryInput = {
   memberId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -952,7 +946,7 @@ export type TravelGuideCreateWithoutCommentsInput = {
   id?: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -976,7 +970,7 @@ export type TravelGuideUncheckedCreateWithoutCommentsInput = {
   categoryId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1012,7 +1006,7 @@ export type TravelGuideUpdateWithoutCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1036,7 +1030,7 @@ export type TravelGuideUncheckedUpdateWithoutCommentsInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1056,7 +1050,7 @@ export type TravelGuideCreateWithoutFavoritesInput = {
   id?: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1080,7 +1074,7 @@ export type TravelGuideUncheckedCreateWithoutFavoritesInput = {
   categoryId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1116,7 +1110,7 @@ export type TravelGuideUpdateWithoutFavoritesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1140,7 +1134,7 @@ export type TravelGuideUncheckedUpdateWithoutFavoritesInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1160,7 +1154,7 @@ export type TravelGuideCreateWithoutGuideMediaInput = {
   id?: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1184,7 +1178,7 @@ export type TravelGuideUncheckedCreateWithoutGuideMediaInput = {
   categoryId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1220,7 +1214,7 @@ export type TravelGuideUpdateWithoutGuideMediaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1244,7 +1238,7 @@ export type TravelGuideUncheckedUpdateWithoutGuideMediaInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1264,7 +1258,7 @@ export type TravelGuideCreateWithoutGuideReviewsInput = {
   id?: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1288,7 +1282,7 @@ export type TravelGuideUncheckedCreateWithoutGuideReviewsInput = {
   categoryId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1324,7 +1318,7 @@ export type TravelGuideUpdateWithoutGuideReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1348,7 +1342,7 @@ export type TravelGuideUncheckedUpdateWithoutGuideReviewsInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1368,7 +1362,7 @@ export type TravelGuideCreateWithoutPurchasesInput = {
   id?: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1392,7 +1386,7 @@ export type TravelGuideUncheckedCreateWithoutPurchasesInput = {
   categoryId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1428,7 +1422,7 @@ export type TravelGuideUpdateWithoutPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1452,7 +1446,7 @@ export type TravelGuideUncheckedUpdateWithoutPurchasesInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1472,7 +1466,7 @@ export type TravelGuideCreateWithoutVotesInput = {
   id?: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1496,7 +1490,7 @@ export type TravelGuideUncheckedCreateWithoutVotesInput = {
   categoryId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1532,7 +1526,7 @@ export type TravelGuideUpdateWithoutVotesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1556,7 +1550,7 @@ export type TravelGuideUncheckedUpdateWithoutVotesInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1577,7 +1571,7 @@ export type TravelGuideCreateManyMemberInput = {
   categoryId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1592,7 +1586,7 @@ export type TravelGuideUpdateWithoutMemberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1615,7 +1609,7 @@ export type TravelGuideUncheckedUpdateWithoutMemberInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1637,7 +1631,7 @@ export type TravelGuideUncheckedUpdateManyWithoutMemberInput = {
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1653,7 +1647,7 @@ export type TravelGuideCreateManyCategoryInput = {
   memberId: string
   title: string
   description: string
-  itinerary: string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.GuideStatus
   isPaid?: boolean
   price?: number | null
@@ -1668,7 +1662,7 @@ export type TravelGuideUpdateWithoutCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1691,7 +1685,7 @@ export type TravelGuideUncheckedUpdateWithoutCategoryInput = {
   memberId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1713,7 +1707,7 @@ export type TravelGuideUncheckedUpdateManyWithoutCategoryInput = {
   memberId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1920,7 +1914,7 @@ export type $TravelGuidePayload<ExtArgs extends runtime.Types.Extensions.Interna
     categoryId: string
     title: string
     description: string
-    itinerary: string
+    itinerary: runtime.JsonValue | null
     status: $Enums.GuideStatus
     isPaid: boolean
     price: number | null
@@ -2365,7 +2359,7 @@ export interface TravelGuideFieldRefs {
   readonly categoryId: Prisma.FieldRef<"TravelGuide", 'String'>
   readonly title: Prisma.FieldRef<"TravelGuide", 'String'>
   readonly description: Prisma.FieldRef<"TravelGuide", 'String'>
-  readonly itinerary: Prisma.FieldRef<"TravelGuide", 'String'>
+  readonly itinerary: Prisma.FieldRef<"TravelGuide", 'Json'>
   readonly status: Prisma.FieldRef<"TravelGuide", 'GuideStatus'>
   readonly isPaid: Prisma.FieldRef<"TravelGuide", 'Boolean'>
   readonly price: Prisma.FieldRef<"TravelGuide", 'Float'>

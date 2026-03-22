@@ -5,7 +5,11 @@ import AppError from "../errors/AppError";
 const validateRequest = (schema: ZodSchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      const parsedData = schema.safeParse(req.body);
+      // if (req.body.data) {
+      //   req.body = JSON.parse(req.body.data);
+      // }
+      console.log("Request body before validation:");
+      const parsedData = schema.safeParse(req.body.data);
 
       if (!parsedData.success) {
         const errorMessages = parsedData.error.issues

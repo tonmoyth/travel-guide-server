@@ -5,6 +5,7 @@ import { TravelGuideController } from "./travel-guide.controller";
 import { TravelGuideValidationSchema } from "./travel-guide.validation";
 import { MemberRole } from "../../../prisma/generated/prisma/enums";
 import validateRequest from "../../middlewares/validateRequest";
+import { multerUpload } from "../../config/multer";
 
 const router = express.Router();
 
@@ -14,7 +15,8 @@ router.get("/:id", chackAuth(), TravelGuideController.getById);
 router.post(
   "/",
   chackAuth(MemberRole.MEMBER),
-  validateRequest(TravelGuideValidationSchema.create),
+  multerUpload.single("file"),
+  // validateRequest(TravelGuideValidationSchema.create),
   TravelGuideController.create,
 );
 

@@ -19,6 +19,9 @@ interface IEnvReturnType {
   GOOGLE_CLIENT_SECRET?: string;
   GOOGLE_REDIRECT_URI?: string;
   GOOGLE_FRONTEND_URL?: string;
+  CLOUDINARY_CLOUD_NAME: string;
+  CLOUDINARY_API_KEY: string;
+  CLOUDINARY_API_SECRET: string;
 }
 
 const envConfig = (): IEnvReturnType => {
@@ -36,6 +39,9 @@ const envConfig = (): IEnvReturnType => {
     "GOOGLE_CLIENT_SECRET",
     "GOOGLE_REDIRECT_URI",
     "GOOGLE_FRONTEND_URL",
+    "CLOUDINARY_CLOUD_NAME",
+    "CLOUDINARY_API_KEY",
+    "CLOUDINARY_API_SECRET",
 
     // FRONTEND_URL is optional.
   ];
@@ -45,6 +51,16 @@ const envConfig = (): IEnvReturnType => {
       throw new Error(`Missing environment variable: ${element}`);
     }
   });
+
+  if (
+    !process.env.CLOUDINARY_CLOUD_NAME ||
+    !process.env.CLOUDINARY_API_KEY ||
+    !process.env.CLOUDINARY_API_SECRET
+  ) {
+    throw new Error(
+      "Missing Cloudinary environment variables. Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET.",
+    );
+  }
 
   return {
     PORT: process.env.PORT!,
@@ -60,6 +76,9 @@ const envConfig = (): IEnvReturnType => {
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
     GOOGLE_FRONTEND_URL: process.env.GOOGLE_FRONTEND_URL,
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME!,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY!,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET!,
   };
 };
 

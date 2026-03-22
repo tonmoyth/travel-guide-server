@@ -5,7 +5,7 @@ model TravelGuide {
     categoryId  String
     title       String
     description String
-    itinerary   String
+    itinerary   Json?
     status      GuideStatus @default(DRAFT)
     isPaid      Boolean     @default(false)
     price       Float?

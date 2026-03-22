@@ -1,11 +1,33 @@
-import { Category } from "../../../prisma/generated/prisma/browser";
+import { Category, Prisma } from "../../../prisma/generated/prisma/browser";
+import { IQueryParams } from "../../interface/queryBuilder.interface";
 import { prisma } from "../../lib/prisma";
+import { QueryBuilder } from "../../utils/queryBuilder";
+import { FilterableFields, SearchableFields } from "./categories.constant";
 
-const getAll = async (): Promise<Category[]> => {
-  return await prisma.category.findMany({
-    where: { isDeleted: false },
-    orderBy: { createdAt: "desc" },
+const getAll = async (query: IQueryParams) => {
+  const queryBuilder = new QueryBuilder<
+    Category,
+    Prisma.CategoryWhereInput,
+    Prisma.CategoryInclude
+  >(prisma.category, query, {
+    searchableFields: SearchableFields,
+    filterableFields: FilterableFields,
   });
+
+  const results = await queryBuilder
+    .search()
+    .filter()
+    .include({ guides: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return results;
+  // return await prisma.category.findMany({
+  //   where: { isDeleted: false },
+  //   orderBy: { createdAt: "desc" },
+  // });
 };
 
 const getById = async (id: string): Promise<Category | null> => {

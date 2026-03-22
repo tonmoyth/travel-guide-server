@@ -5,7 +5,11 @@ import { TravelGuideService } from "./travel-guide.service";
 const getAll = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user!.id;
   const userRole = req.user!.role;
-  const data = await TravelGuideService.getAll(userId, userRole);
+  const data = await TravelGuideService.getAll(
+    userId,
+    userRole,
+    req.query as any,
+  );
   res.status(200).json({
     success: true,
     message: "Travel guides retrieved successfully",
@@ -28,11 +32,12 @@ const getById = catchAsync(async (req: Request, res: Response) => {
 const create = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
   const memberId = req.user!.id;
-  const data = await TravelGuideService.create(payload, memberId);
+  console.log(payload);
+  // const data = await TravelGuideService.create(payload, memberId);
   res.status(201).json({
     success: true,
     message: "Travel guide created successfully",
-    data,
+    // data,
   });
 });
 

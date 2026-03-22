@@ -2,6 +2,7 @@ import {
   GuideStatus,
   MediaType,
 } from "../../../prisma/generated/prisma/browser";
+import { JsonArray } from "../../../prisma/generated/prisma/internal/prismaNamespace";
 
 export type ItineraryItem = {
   day: number;
@@ -31,7 +32,7 @@ export type TravelGuide = {
   categoryId: string;
   title: string;
   description: string;
-  itinerary: string; // JSON string
+  itinerary: JsonArray; // JSON string
   status: GuideStatus;
   isPaid: boolean;
   price: number | null;

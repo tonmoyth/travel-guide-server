@@ -3,14 +3,12 @@ import { catchAsync } from "../../shared";
 import { CategoryService } from "./categories.service";
 
 const getAll = catchAsync(async (req: Request, res: Response) => {
-  const data = await CategoryService.getAll();
-  res
-    .status(200)
-    .json({
-      success: true,
-      message: "Categories retrieved successfully",
-      data,
-    });
+  const data = await CategoryService.getAll(req.query as any);
+  res.status(200).json({
+    success: true,
+    message: "Categories retrieved successfully",
+    data,
+  });
 });
 
 const getById = catchAsync(async (req: Request, res: Response) => {

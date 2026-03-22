@@ -3,30 +3,49 @@ import { prisma } from "../../lib/prisma";
 import {
   GuideStatus,
   MemberRole,
+  Prisma,
 } from "../../../prisma/generated/prisma/browser";
 import AppError from "../../errors/AppError";
+import {
+  IQueryParams,
+  IQueryResult,
+} from "../../interface/queryBuilder.interface";
+import { QueryBuilder } from "../../utils/queryBuilder";
+import { SearchableFields, FilterableFields } from "./travel-guide.constant";
 
 const getAll = async (
   userId: string,
   userRole: string,
-): Promise<TravelGuide[]> => {
-  if (userRole === MemberRole.MEMBER) {
-    // Member gets only their own guides
-    return await prisma.travelGuide.findMany({
-      where: { isDeleted: false, memberId: userId },
-    });
-  } else {
-    //for all other role get all guides
-    return await prisma.travelGuide.findMany({
-      where: { isDeleted: false },
-    });
-  }
+  query: IQueryParams = {},
+): Promise<IQueryResult<TravelGuide>> => {
+  const queryBuilder = new QueryBuilder<
+    TravelGuide,
+    Prisma.TravelGuideWhereInput,
+    Prisma.TravelGuideInclude
+  >(prisma.travelGuide, query, {
+    searchableFields: SearchableFields,
+    filterableFields: FilterableFields,
+  });
+
+  queryBuilder.where({ isDeleted: false });
+
+  // if (userRole === MemberRole.MEMBER) {
+  //   queryBuilder.where({ memberId: userId });
+  // }
+
+  const results = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return results;
 };
 
-const getById = async (
-  id: string,
-  userId: string,
-): Promise<TravelGuide | null> => {
+const getById = async (id: string, userId: string) => {
   // Member can only view their own guides
   return await prisma.travelGuide.findUnique({
     where: { id, isDeleted: false, memberId: userId },
