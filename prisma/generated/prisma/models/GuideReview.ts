@@ -30,6 +30,7 @@ export type GuideReviewMinAggregateOutputType = {
   reviewedBy: string | null
   status: $Enums.GuideReviewStatus | null
   feedback: string | null
+  isDeleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -40,6 +41,7 @@ export type GuideReviewMaxAggregateOutputType = {
   reviewedBy: string | null
   status: $Enums.GuideReviewStatus | null
   feedback: string | null
+  isDeleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -50,6 +52,7 @@ export type GuideReviewCountAggregateOutputType = {
   reviewedBy: number
   status: number
   feedback: number
+  isDeleted: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -62,6 +65,7 @@ export type GuideReviewMinAggregateInputType = {
   reviewedBy?: true
   status?: true
   feedback?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -72,6 +76,7 @@ export type GuideReviewMaxAggregateInputType = {
   reviewedBy?: true
   status?: true
   feedback?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -82,6 +87,7 @@ export type GuideReviewCountAggregateInputType = {
   reviewedBy?: true
   status?: true
   feedback?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -165,6 +171,7 @@ export type GuideReviewGroupByOutputType = {
   reviewedBy: string
   status: $Enums.GuideReviewStatus
   feedback: string | null
+  isDeleted: boolean
   createdAt: Date
   updatedAt: Date
   _count: GuideReviewCountAggregateOutputType | null
@@ -196,6 +203,7 @@ export type GuideReviewWhereInput = {
   reviewedBy?: Prisma.StringFilter<"GuideReview"> | string
   status?: Prisma.EnumGuideReviewStatusFilter<"GuideReview"> | $Enums.GuideReviewStatus
   feedback?: Prisma.StringNullableFilter<"GuideReview"> | string | null
+  isDeleted?: Prisma.BoolFilter<"GuideReview"> | boolean
   createdAt?: Prisma.DateTimeFilter<"GuideReview"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"GuideReview"> | Date | string
   reviewer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -208,6 +216,7 @@ export type GuideReviewOrderByWithRelationInput = {
   reviewedBy?: Prisma.SortOrder
   status?: Prisma.SortOrder
   feedback?: Prisma.SortOrderInput | Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   reviewer?: Prisma.UserOrderByWithRelationInput
@@ -223,6 +232,7 @@ export type GuideReviewWhereUniqueInput = Prisma.AtLeast<{
   reviewedBy?: Prisma.StringFilter<"GuideReview"> | string
   status?: Prisma.EnumGuideReviewStatusFilter<"GuideReview"> | $Enums.GuideReviewStatus
   feedback?: Prisma.StringNullableFilter<"GuideReview"> | string | null
+  isDeleted?: Prisma.BoolFilter<"GuideReview"> | boolean
   createdAt?: Prisma.DateTimeFilter<"GuideReview"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"GuideReview"> | Date | string
   reviewer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -235,6 +245,7 @@ export type GuideReviewOrderByWithAggregationInput = {
   reviewedBy?: Prisma.SortOrder
   status?: Prisma.SortOrder
   feedback?: Prisma.SortOrderInput | Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.GuideReviewCountOrderByAggregateInput
@@ -251,6 +262,7 @@ export type GuideReviewScalarWhereWithAggregatesInput = {
   reviewedBy?: Prisma.StringWithAggregatesFilter<"GuideReview"> | string
   status?: Prisma.EnumGuideReviewStatusWithAggregatesFilter<"GuideReview"> | $Enums.GuideReviewStatus
   feedback?: Prisma.StringNullableWithAggregatesFilter<"GuideReview"> | string | null
+  isDeleted?: Prisma.BoolWithAggregatesFilter<"GuideReview"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"GuideReview"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"GuideReview"> | Date | string
 }
@@ -259,6 +271,7 @@ export type GuideReviewCreateInput = {
   id?: string
   status: $Enums.GuideReviewStatus
   feedback?: string | null
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   reviewer: Prisma.UserCreateNestedOneWithoutGuideReviewsInput
@@ -271,6 +284,7 @@ export type GuideReviewUncheckedCreateInput = {
   reviewedBy: string
   status: $Enums.GuideReviewStatus
   feedback?: string | null
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -279,6 +293,7 @@ export type GuideReviewUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumGuideReviewStatusFieldUpdateOperationsInput | $Enums.GuideReviewStatus
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewer?: Prisma.UserUpdateOneRequiredWithoutGuideReviewsNestedInput
@@ -291,6 +306,7 @@ export type GuideReviewUncheckedUpdateInput = {
   reviewedBy?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumGuideReviewStatusFieldUpdateOperationsInput | $Enums.GuideReviewStatus
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -301,6 +317,7 @@ export type GuideReviewCreateManyInput = {
   reviewedBy: string
   status: $Enums.GuideReviewStatus
   feedback?: string | null
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -309,6 +326,7 @@ export type GuideReviewUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumGuideReviewStatusFieldUpdateOperationsInput | $Enums.GuideReviewStatus
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -319,6 +337,7 @@ export type GuideReviewUncheckedUpdateManyInput = {
   reviewedBy?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumGuideReviewStatusFieldUpdateOperationsInput | $Enums.GuideReviewStatus
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -339,6 +358,7 @@ export type GuideReviewCountOrderByAggregateInput = {
   reviewedBy?: Prisma.SortOrder
   status?: Prisma.SortOrder
   feedback?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -349,6 +369,7 @@ export type GuideReviewMaxOrderByAggregateInput = {
   reviewedBy?: Prisma.SortOrder
   status?: Prisma.SortOrder
   feedback?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -359,6 +380,7 @@ export type GuideReviewMinOrderByAggregateInput = {
   reviewedBy?: Prisma.SortOrder
   status?: Prisma.SortOrder
   feedback?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -455,6 +477,7 @@ export type GuideReviewCreateWithoutReviewerInput = {
   id?: string
   status: $Enums.GuideReviewStatus
   feedback?: string | null
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   guide: Prisma.TravelGuideCreateNestedOneWithoutGuideReviewsInput
@@ -465,6 +488,7 @@ export type GuideReviewUncheckedCreateWithoutReviewerInput = {
   guideId: string
   status: $Enums.GuideReviewStatus
   feedback?: string | null
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -504,6 +528,7 @@ export type GuideReviewScalarWhereInput = {
   reviewedBy?: Prisma.StringFilter<"GuideReview"> | string
   status?: Prisma.EnumGuideReviewStatusFilter<"GuideReview"> | $Enums.GuideReviewStatus
   feedback?: Prisma.StringNullableFilter<"GuideReview"> | string | null
+  isDeleted?: Prisma.BoolFilter<"GuideReview"> | boolean
   createdAt?: Prisma.DateTimeFilter<"GuideReview"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"GuideReview"> | Date | string
 }
@@ -512,6 +537,7 @@ export type GuideReviewCreateWithoutGuideInput = {
   id?: string
   status: $Enums.GuideReviewStatus
   feedback?: string | null
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   reviewer: Prisma.UserCreateNestedOneWithoutGuideReviewsInput
@@ -522,6 +548,7 @@ export type GuideReviewUncheckedCreateWithoutGuideInput = {
   reviewedBy: string
   status: $Enums.GuideReviewStatus
   feedback?: string | null
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -557,6 +584,7 @@ export type GuideReviewCreateManyReviewerInput = {
   guideId: string
   status: $Enums.GuideReviewStatus
   feedback?: string | null
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -565,6 +593,7 @@ export type GuideReviewUpdateWithoutReviewerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumGuideReviewStatusFieldUpdateOperationsInput | $Enums.GuideReviewStatus
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   guide?: Prisma.TravelGuideUpdateOneRequiredWithoutGuideReviewsNestedInput
@@ -575,6 +604,7 @@ export type GuideReviewUncheckedUpdateWithoutReviewerInput = {
   guideId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumGuideReviewStatusFieldUpdateOperationsInput | $Enums.GuideReviewStatus
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -584,6 +614,7 @@ export type GuideReviewUncheckedUpdateManyWithoutReviewerInput = {
   guideId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumGuideReviewStatusFieldUpdateOperationsInput | $Enums.GuideReviewStatus
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -593,6 +624,7 @@ export type GuideReviewCreateManyGuideInput = {
   reviewedBy: string
   status: $Enums.GuideReviewStatus
   feedback?: string | null
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -601,6 +633,7 @@ export type GuideReviewUpdateWithoutGuideInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumGuideReviewStatusFieldUpdateOperationsInput | $Enums.GuideReviewStatus
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewer?: Prisma.UserUpdateOneRequiredWithoutGuideReviewsNestedInput
@@ -611,6 +644,7 @@ export type GuideReviewUncheckedUpdateWithoutGuideInput = {
   reviewedBy?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumGuideReviewStatusFieldUpdateOperationsInput | $Enums.GuideReviewStatus
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -620,6 +654,7 @@ export type GuideReviewUncheckedUpdateManyWithoutGuideInput = {
   reviewedBy?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumGuideReviewStatusFieldUpdateOperationsInput | $Enums.GuideReviewStatus
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -632,6 +667,7 @@ export type GuideReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   reviewedBy?: boolean
   status?: boolean
   feedback?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -644,6 +680,7 @@ export type GuideReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   reviewedBy?: boolean
   status?: boolean
   feedback?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -656,6 +693,7 @@ export type GuideReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   reviewedBy?: boolean
   status?: boolean
   feedback?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -668,11 +706,12 @@ export type GuideReviewSelectScalar = {
   reviewedBy?: boolean
   status?: boolean
   feedback?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type GuideReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "guideId" | "reviewedBy" | "status" | "feedback" | "createdAt" | "updatedAt", ExtArgs["result"]["guideReview"]>
+export type GuideReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "guideId" | "reviewedBy" | "status" | "feedback" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["guideReview"]>
 export type GuideReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   guide?: boolean | Prisma.TravelGuideDefaultArgs<ExtArgs>
@@ -698,6 +737,7 @@ export type $GuideReviewPayload<ExtArgs extends runtime.Types.Extensions.Interna
     reviewedBy: string
     status: $Enums.GuideReviewStatus
     feedback: string | null
+    isDeleted: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["guideReview"]>
@@ -1130,6 +1170,7 @@ export interface GuideReviewFieldRefs {
   readonly reviewedBy: Prisma.FieldRef<"GuideReview", 'String'>
   readonly status: Prisma.FieldRef<"GuideReview", 'GuideReviewStatus'>
   readonly feedback: Prisma.FieldRef<"GuideReview", 'String'>
+  readonly isDeleted: Prisma.FieldRef<"GuideReview", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"GuideReview", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"GuideReview", 'DateTime'>
 }

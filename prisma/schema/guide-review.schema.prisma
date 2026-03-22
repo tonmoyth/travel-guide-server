@@ -5,6 +5,7 @@ model GuideReview {
     reviewedBy String // FK to Better Auth user (admin)
     status     GuideReviewStatus
     feedback   String?
+    isDeleted  Boolean           @default(false)
     createdAt  DateTime          @default(now())
     updatedAt  DateTime          @updatedAt
 

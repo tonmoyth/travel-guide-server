@@ -203,6 +203,7 @@ export const GuideReviewScalarFieldEnum = {
   reviewedBy: 'reviewedBy',
   status: 'status',
   feedback: 'feedback',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
