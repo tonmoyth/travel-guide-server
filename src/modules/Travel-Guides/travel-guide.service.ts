@@ -36,7 +36,7 @@ const getAll = async (
   const results = await queryBuilder
     .search()
     .filter()
-    .include({ guideMedia: true })
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
     .paginate()
     .sort()
     .fields()
