@@ -24,6 +24,13 @@ interface IEnvReturnType {
   CLOUDINARY_API_SECRET: string;
   STRIPE_SECRET_KEY: string;
   STRIPE_WEBHOOK_SECRET: string;
+  EMAIL_SENDER: {
+    EMAIL_SENDER_SMTP_USER: string;
+    EMAIL_SENDER_SMTP_PASS: string;
+    EMAIL_SENDER_SMTP_HOST: string;
+    EMAIL_SENDER_SMTP_PORT: string;
+    EMAIL_SENDER_FROM: string;
+  };
 }
 
 const envConfig = (): IEnvReturnType => {
@@ -46,6 +53,11 @@ const envConfig = (): IEnvReturnType => {
     "CLOUDINARY_API_SECRET",
     "STRIPE_SECRET_KEY",
     "STRIPE_WEBHOOK_SECRET",
+    "EMAIL_SENDER_SMTP_USER",
+    "EMAIL_SENDER_SMTP_PASS",
+    "EMAIL_SENDER_SMTP_HOST",
+    "EMAIL_SENDER_SMTP_PORT",
+    "EMAIL_SENDER_FROM",
 
     // FRONTEND_URL is optional.
   ];
@@ -85,6 +97,13 @@ const envConfig = (): IEnvReturnType => {
     CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET!,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY!,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET!,
+    EMAIL_SENDER: {
+      EMAIL_SENDER_SMTP_USER: process.env.EMAIL_SENDER_SMTP_USER!,
+      EMAIL_SENDER_SMTP_PASS: process.env.EMAIL_SENDER_SMTP_PASS!,
+      EMAIL_SENDER_SMTP_HOST: process.env.EMAIL_SENDER_SMTP_HOST!,
+      EMAIL_SENDER_SMTP_PORT: process.env.EMAIL_SENDER_SMTP_PORT!,
+      EMAIL_SENDER_FROM: process.env.EMAIL_SENDER_FROM!,
+    },
   };
 };
 

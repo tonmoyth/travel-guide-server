@@ -7,6 +7,7 @@ import { MemberService } from "./memeber.service";
 import { tokenUtils } from "../../utils/token";
 import { cookieUtil } from "../../utils/cookies";
 import { envVeriables } from "../../config/env";
+import status from "http-status";
 
 const memberSignup = catchAsync(async (req: Request, res: Response) => {
   const result = await MemberService.signup(req.body);
@@ -198,6 +199,44 @@ const handleGoogleError = catchAsync(async (req: Request, res: Response) => {
   res.redirect(`${envVeriables.FRONTEND_URL}/login?error=${error}`);
 });
 
+// TODO:
+const changePassword = catchAsync(async (req: Request, res: Response) => {
+  const payload = req.body;
+  const sessionToken = req.cookies["better-auth.session-token"];
+
+  if (!sessionToken) {
+    throw new AppError(401, "Session token is required to change password.");
+  }
+
+  const result = await MemberService.changePassword(payload, sessionToken);
+
+  const { accessToken, refreshToken } = result;
+
+  tokenUtils.setTokenCookie(res, accessToken);
+  tokenUtils.setRefreshTokenCookie(res, refreshToken);
+  tokenUtils.setBetterAuthSession(res, sessionToken);
+
+  res.status(200).json({
+    success: true,
+    message: "Password changed successfully.",
+    data: result,
+  });
+});
+
+const verifyEmail = catchAsync(async (req: Request, res: Response) => {
+  const { email, otp } = req.body;
+
+  if (!email || !otp) {
+    throw new AppError(status.BAD_REQUEST, "Email and OTP are required.");
+  }
+
+  await MemberService.verifyEmail(email, otp);
+  res.status(200).json({
+    success: true,
+    message: "Email verified successfully.",
+  });
+});
+
 export const MemberController = {
   signup: memberSignup,
   login: memberLogin,
@@ -207,4 +246,6 @@ export const MemberController = {
   googleLogin,
   googleLoginSuccess,
   handleGoogleError,
+  changePassword,
+  verifyEmail,
 };

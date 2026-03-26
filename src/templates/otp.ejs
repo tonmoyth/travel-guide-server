@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Verification - Travel Guide</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .header {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 20px;
+        text-align: center;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+      .content {
+        padding: 30px;
+        text-align: center;
+      }
+      .otp-code {
+        font-size: 32px;
+        font-weight: bold;
+        color: #007bff;
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        display: inline-block;
+        margin: 20px 0;
+        letter-spacing: 5px;
+      }
+      .footer {
+        background-color: #f8f9fa;
+        padding: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+      }
+      .warning {
+        color: #dc3545;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Travel Guide Verification</h1>
+      </div>
+      <div class="content">
+        <h2>Hello <%= name %>,</h2>
+        <p>
+          Welcome to Travel Guide! To complete your verification, please use the
+          OTP code below:
+        </p>
+        <div class="otp-code"><%= otp %></div>
+        <p class="warning">
+          This code will expire in 5 minutes. Do not share it with anyone.
+        </p>
+        <p>If you didn't request this, please ignore this email.</p>
+      </div>
+      <div class="footer">
+        <p>&copy; 2026 Travel Guide. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>

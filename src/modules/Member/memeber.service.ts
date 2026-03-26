@@ -236,6 +236,89 @@ export const getCurrentMember = async (userId: string): Promise<TMember> => {
   };
 };
 
+const changePassword = async (
+  payload: {
+    currentPassword: string;
+    newPassword: string;
+  },
+  session: string,
+) => {
+  // Query the session from the database to validate it and get the user
+  const sessionRecord = await prisma.session.findUnique({
+    where: {
+      token: session,
+    },
+    include: {
+      user: true,
+    },
+  });
+  console.log("Session record for change password:", sessionRecord);
+
+  if (!sessionRecord || !sessionRecord.user) {
+    throw new AppError(401, "Invalid session token.");
+  }
+
+  const { currentPassword, newPassword } = payload;
+
+  const result = await auth.api.changePassword({
+    body: {
+      currentPassword,
+      newPassword,
+      revokeOtherSessions: true,
+    },
+    headers: {
+      Authorization: `Bearer ${session}`,
+    },
+  } as any);
+
+  const accessToken = tokenUtils.getToken({
+    userId: sessionRecord.user.id,
+    email: sessionRecord.user.email,
+    name: sessionRecord.user.name,
+    role: sessionRecord.user.role,
+    deletedAt: sessionRecord.user.deletedAt,
+    isDeleted: (sessionRecord.user as any).isDeleted,
+    status: (sessionRecord.user as any).status,
+  });
+
+  const refreshToken = tokenUtils.getRefreshToken({
+    userId: sessionRecord.user.id,
+    name: sessionRecord.user.name,
+    role: sessionRecord.user.role,
+    email: sessionRecord.user.email,
+    deletedAt: sessionRecord.user.deletedAt,
+    isDeleted: (sessionRecord.user as any).isDeleted,
+    status: (sessionRecord.user as any).status,
+  });
+
+  return {
+    ...result,
+    accessToken,
+    refreshToken,
+  };
+};
+
+const verifyEmail = async (email: string, otp: string) => {
+  const result = await auth.api.verifyEmailOTP({
+    body: {
+      email,
+      otp,
+    },
+  });
+
+  // On better-auth verify success, update local user to keep the app in sync
+  if (result.status && result.user && !result.user.emailVerified) {
+    await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        emailVerified: true,
+      },
+    });
+  }
+};
+
 export const MemberService = {
   signup: memberSignUp,
   login: memberLogin,
@@ -243,4 +326,6 @@ export const MemberService = {
   getCurrentMember,
   getNewRefreshToken,
   googleLoginSuccess,
+  changePassword,
+  verifyEmail,
 };
