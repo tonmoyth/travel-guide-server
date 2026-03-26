@@ -58,6 +58,27 @@ const create = async (
   data: TravelGuideCreateInput,
   memberId: string,
 ): Promise<TravelGuide> => {
+  // Validate required fields
+  if (!data.title || !data.description || !data.categoryId) {
+    throw new AppError(
+      400,
+      "Missing required fields: title, description, categoryId",
+    );
+  }
+
+  if (!data.medias || data.medias.length === 0) {
+    throw new AppError(400, "At least one media file is required");
+  }
+
+  // Verify category exists
+  const category = await prisma.category.findUnique({
+    where: { id: data.categoryId },
+  });
+
+  if (!category) {
+    throw new AppError(404, "Category not found");
+  }
+
   // Use transaction
   const result = await prisma.$transaction(async (tx) => {
     const guide = await tx.travelGuide.create({
@@ -66,11 +87,16 @@ const create = async (
         categoryId: data.categoryId,
         title: data.title,
         description: data.description,
-        itinerary: JSON.stringify(data.itinerary),
+        itinerary: data.itinerary
+          ? JSON.stringify(data.itinerary)
+          : JSON.stringify([]),
         status: data.status || GuideStatus.DRAFT,
         isPaid: data.isPaid || false,
-        price: data.price,
-        coverImage: data.coverImage,
+        price: data.price || null,
+        coverImage: data.coverImage || null,
+      },
+      include: {
+        guideMedia: true,
       },
     });
 

@@ -12,16 +12,16 @@ export type ItineraryItem = {
 
 export type TravelGuideCreateInput = {
   title: string;
-  destination: string;
+  destination?: string;
   description: string;
   categoryId: string;
-  itinerary: ItineraryItem[];
+  itinerary?: ItineraryItem[];
   status?: GuideStatus;
   isPaid?: boolean;
   price?: number;
   coverImage?: string;
   medias: {
-    type: MediaType;
+    type: "IMAGE" | "VIDEO" | "PDF";
     url: string;
   }[];
 };
@@ -41,4 +41,12 @@ export type TravelGuide = {
   deletedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
+  guideMedia?: Array<{
+    id: string;
+    guideId: string;
+    type: string;
+    url: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }>;
 };

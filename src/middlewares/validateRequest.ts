@@ -5,9 +5,9 @@ import AppError from "../errors/AppError";
 const validateRequest = (schema: ZodSchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      // if (req.body.data) {
-      //   req.body = JSON.parse(req.body.data);
-      // }
+      if (req.body.data) {
+        req.body = JSON.parse(req.body.data);
+      }
 
       const parsedData = schema.safeParse(req.body);
       console.log(parsedData);

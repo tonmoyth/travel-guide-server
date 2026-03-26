@@ -9,6 +9,8 @@ import { PaymentController } from "./modules/payment/payment.controller";
 
 const app: Application = express();
 
+// Webhook route must come BEFORE express.json() middleware
+// because Stripe needs raw body for signature verification
 app.post(
   "/webhook",
   express.raw({ type: "application/json" }),

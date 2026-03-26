@@ -12,23 +12,16 @@ const ItineraryItemSchema = z.object({
 
 export const TravelGuideValidationSchema = {
   create: z.object({
-    title: z.string().min(1),
-    destination: z.string().min(1),
-    description: z.string().min(1),
-    categoryId: z.string().min(1),
-    itinerary: z.array(ItineraryItemSchema).min(1),
+    title: z.string().min(1, "Title is required"),
+    description: z.string().min(1, "Description is required"),
+    categoryId: z.string().min(1, "Category ID is required"),
+    destination: z.string().optional(),
+    itinerary: z.array(ItineraryItemSchema).optional(),
     status: z.nativeEnum(GuideStatus).optional().default(GuideStatus.DRAFT),
     isPaid: z.boolean().optional().default(false),
     price: z.number().optional(),
     coverImage: z.string().optional(),
-    medias: z
-      .array(
-        z.object({
-          type: z.nativeEnum(MediaType),
-          url: z.string().url(),
-        }),
-      )
-      .min(1),
+    // Note: medias are handled separately via file uploads
   }),
   update: z.object({
     title: z.string().optional(),
