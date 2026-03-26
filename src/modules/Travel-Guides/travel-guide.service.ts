@@ -46,6 +46,8 @@ const getAll = async (
 };
 
 const getById = async (id: string, userId: string) => {
+  //TODO: chack isPaid === true then only allow access if user has paid or is owner , free guides can be accessed by anyone, paid guides can only be accessed by owner or users who have paid
+
   // Member can only view their own guides
   return await prisma.travelGuide.findUnique({
     where: { id, isDeleted: false, memberId: userId },

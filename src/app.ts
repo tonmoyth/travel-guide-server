@@ -5,8 +5,15 @@ import routes from "./routes";
 import cookieParser from "cookie-parser";
 import { notFound } from "./middlewares/notFound";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
+import { PaymentController } from "./modules/payment/payment.controller";
 
 const app: Application = express();
+
+app.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  PaymentController.handleStripeWebhookEvent,
+);
 
 // parsers
 app.use(express.json());
