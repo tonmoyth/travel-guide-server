@@ -15,30 +15,6 @@ const router = express.Router();
 router.get("/", TravelGuideController.getAll);
 
 router.get(
-  "/admin/all-guides",
-  chackAuth(MemberRole.ADMIN),
-  TravelGuideController.getAllForAdmin,
-);
-
-router.get(
-  "/admin/rejected-guides",
-  chackAuth(MemberRole.ADMIN),
-  TravelGuideController.getRejectedGuides,
-);
-
-router.get(
-  "/admin/under-review-guides",
-  chackAuth(MemberRole.ADMIN),
-  TravelGuideController.getUnderReviewGuides,
-);
-
-router.get(
-  "/admin/approved-guides",
-  chackAuth(MemberRole.ADMIN),
-  TravelGuideController.getApprovedGuides,
-);
-
-router.get(
   "/draft-guides",
   chackAuth(MemberRole.MEMBER),
   TravelGuideController.getMemberDraftGuides,

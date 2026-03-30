@@ -4,7 +4,6 @@ import {
   GuideReviewStatus,
   GuideStatus,
   MemberRole,
-  MemberStatus,
 } from "../../../prisma/generated/prisma/enums";
 import {
   IQueryParams,
@@ -14,6 +13,8 @@ import { QueryBuilder } from "../../utils/queryBuilder";
 import {
   MemberSearchableFields,
   MemberFilterableFields,
+  TravelGuideSearchableFields,
+  TravelGuideFilterableFields,
 } from "./admin.constant";
 
 interface FeedbackData {
@@ -208,9 +209,119 @@ const updateMemberRole = async (
   };
 };
 
+const getAllForAdmin = async (
+  query: IQueryParams = {},
+): Promise<IQueryResult<any>> => {
+  const queryBuilder = new QueryBuilder(prisma.travelGuide, query, {
+    searchableFields: TravelGuideSearchableFields,
+    filterableFields: TravelGuideFilterableFields,
+  });
+
+  queryBuilder.where({ isDeleted: false });
+
+  const results = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return results;
+};
+
+const getRejectedGuides = async (
+  query: IQueryParams = {},
+): Promise<IQueryResult<any>> => {
+  const queryBuilder = new QueryBuilder(prisma.travelGuide, query, {
+    searchableFields: TravelGuideSearchableFields,
+    filterableFields: TravelGuideFilterableFields,
+  });
+
+  queryBuilder.where({ isDeleted: false, status: GuideStatus.REJECTED });
+
+  const results = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return results;
+};
+
+const getUnderReviewGuides = async (
+  query: IQueryParams = {},
+): Promise<IQueryResult<any>> => {
+  const queryBuilder = new QueryBuilder(prisma.travelGuide, query, {
+    searchableFields: TravelGuideSearchableFields,
+    filterableFields: TravelGuideFilterableFields,
+  });
+
+  queryBuilder.where({ isDeleted: false, status: GuideStatus.UNDER_REVIEW });
+
+  const results = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return results;
+};
+
+const getApprovedGuides = async (
+  query: IQueryParams = {},
+): Promise<IQueryResult<any>> => {
+  const queryBuilder = new QueryBuilder(prisma.travelGuide, query, {
+    searchableFields: TravelGuideSearchableFields,
+    filterableFields: TravelGuideFilterableFields,
+  });
+
+  queryBuilder.where({ isDeleted: false, status: GuideStatus.APPROVED });
+
+  const results = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return results;
+};
+
+const deleteGuideByAdmin = async (guideId: string): Promise<void> => {
+  // Check if guide exists
+  const guide = await prisma.travelGuide.findUnique({
+    where: { id: guideId },
+  });
+
+  if (!guide) {
+    throw new AppError(404, "Travel guide not found");
+  }
+
+  // Soft delete - mark as deleted
+  await prisma.travelGuide.update({
+    where: { id: guideId },
+    data: { isDeleted: true, deletedAt: new Date() },
+  });
+};
+
 export const AdminService = {
   updateGuideStatus,
   getAllMembers,
   updateMemberStatus,
   updateMemberRole,
+  getAllForAdmin,
+  getRejectedGuides,
+  getUnderReviewGuides,
+  getApprovedGuides,
+  deleteGuideByAdmin,
 };

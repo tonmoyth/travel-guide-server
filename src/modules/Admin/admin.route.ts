@@ -30,4 +30,35 @@ router.put(
   AdminController.updateGuideStatus,
 );
 
+//
+router.get(
+  "/all-guides",
+  chackAuth(MemberRole.ADMIN),
+  AdminController.getAllForAdmin,
+);
+
+router.get(
+  "/rejected-guides",
+  chackAuth(MemberRole.ADMIN),
+  AdminController.getRejectedGuides,
+);
+
+router.get(
+  "/under-review-guides",
+  chackAuth(MemberRole.ADMIN),
+  AdminController.getUnderReviewGuides,
+);
+
+router.get(
+  "/approved-guides",
+  chackAuth(MemberRole.ADMIN),
+  AdminController.getApprovedGuides,
+);
+
+router.delete(
+  "/guides/:id",
+  chackAuth(MemberRole.ADMIN),
+  AdminController.deleteGuideByAdmin,
+);
+
 export const AdminRoutes = router;

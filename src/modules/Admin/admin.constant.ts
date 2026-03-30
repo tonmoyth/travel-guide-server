@@ -13,3 +13,16 @@ export const MemberFilterableFields = [
   "createdAt",
   "updatedAt",
 ];
+
+export const TravelGuideSearchableFields = ["title", "description"];
+
+export const TravelGuideFilterableFields = [
+  "status",
+  "price",
+  "categoryId",
+  "isPaid",
+  "isDeleted",
+  "memberId",
+  "createdAt",
+  "updatedAt",
+];

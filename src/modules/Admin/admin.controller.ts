@@ -60,9 +60,65 @@ const updateMemberRole = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAllForAdmin = catchAsync(async (req: Request, res: Response) => {
+  console.log("Received query parameters for all guides:", req.query);
+  const data = await AdminService.getAllForAdmin(req.query as any);
+  res.status(200).json({
+    success: true,
+    message: "All travel guides retrieved successfully",
+    data,
+  });
+});
+
+const getRejectedGuides = catchAsync(async (req: Request, res: Response) => {
+  console.log("Received query parameters for rejected guides:", req.query);
+  const data = await AdminService.getRejectedGuides(req.query as any);
+  res.status(200).json({
+    success: true,
+    message: "Rejected travel guides retrieved successfully",
+    data,
+  });
+});
+
+const getUnderReviewGuides = catchAsync(async (req: Request, res: Response) => {
+  console.log("Received query parameters for under review guides:", req.query);
+  const data = await AdminService.getUnderReviewGuides(req.query as any);
+  res.status(200).json({
+    success: true,
+    message: "Under review travel guides retrieved successfully",
+    data,
+  });
+});
+
+const getApprovedGuides = catchAsync(async (req: Request, res: Response) => {
+  console.log("Received query parameters for approved guides:", req.query);
+  const data = await AdminService.getApprovedGuides(req.query as any);
+  res.status(200).json({
+    success: true,
+    message: "Approved travel guides retrieved successfully",
+    data,
+  });
+});
+
+const deleteGuideByAdmin = catchAsync(async (req: Request, res: Response) => {
+  const guideId = req.params.id as string;
+
+  await AdminService.deleteGuideByAdmin(guideId);
+
+  res.status(200).json({
+    success: true,
+    message: "Travel guide deleted successfully",
+  });
+});
+
 export const AdminController = {
   updateGuideStatus,
   getAllMembers,
   updateMemberStatus,
   updateMemberRole,
+  getAllForAdmin,
+  getRejectedGuides,
+  getUnderReviewGuides,
+  getApprovedGuides,
+  deleteGuideByAdmin,
 };
