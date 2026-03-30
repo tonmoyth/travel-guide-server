@@ -10,6 +10,7 @@ import { envVeriables } from "../config/env";
 const chackAuth = (...roles: MemberRole[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
+      // const session = cookieUtil.getCookie(req, "better-auth.session_token");
       const session = cookieUtil.getCookie(req, "better-auth.session-token");
 
       if (!session) {

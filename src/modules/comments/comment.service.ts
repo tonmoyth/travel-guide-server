@@ -90,8 +90,8 @@ const updateComment = async (
     throw new AppError(404, "Comment not found");
   }
 
-  if (existing.memberId !== memberId && memberRole !== "ADMIN") {
-    throw new AppError(403, "Not authorized to update this comment");
+  if (existing.memberId !== memberId && memberRole !== MemberRole.ADMIN) {
+    throw new AppError(403, "You can only update your own comments");
   }
 
   const updated = await prisma.comment.update({

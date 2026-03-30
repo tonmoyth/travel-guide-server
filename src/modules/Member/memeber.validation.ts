@@ -32,7 +32,7 @@ export const changePasswordValidationSchema = z
 
 export const emailVerificationValidationSchema = z.object({
   email: z.string().email("Invalid email format"),
-  otp: z.string().min(4, "OTP must be at least 4 characters"),
+  otp: z.string().min(6, "OTP must be at least 6 characters"),
 });
 
 export const MemberValidationSchema = {

@@ -45,6 +45,78 @@ const getAll = async (
   return results;
 };
 
+const getMemberDraftGuides = async (
+  memberId: string,
+  query: IQueryParams = {},
+): Promise<IQueryResult<TravelGuide>> => {
+  const safeQuery = { ...query };
+  delete (safeQuery as any).status;
+  delete (safeQuery as any).memberId;
+  delete (safeQuery as any).isDeleted;
+
+  const queryBuilder = new QueryBuilder<
+    TravelGuide,
+    Prisma.TravelGuideWhereInput,
+    Prisma.TravelGuideInclude
+  >(prisma.travelGuide, safeQuery, {
+    searchableFields: SearchableFields,
+    filterableFields: FilterableFields,
+  });
+
+  queryBuilder.where({
+    memberId,
+    status: GuideStatus.DRAFT,
+    isDeleted: false,
+  });
+
+  const result = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return result;
+};
+
+const getMyApprovedGuides = async (
+  memberId: string,
+  query: IQueryParams = {},
+): Promise<IQueryResult<TravelGuide>> => {
+  const safeQuery = { ...query };
+  delete (safeQuery as any).status;
+  delete (safeQuery as any).memberId;
+  delete (safeQuery as any).isDeleted;
+
+  const queryBuilder = new QueryBuilder<
+    TravelGuide,
+    Prisma.TravelGuideWhereInput,
+    Prisma.TravelGuideInclude
+  >(prisma.travelGuide, safeQuery, {
+    searchableFields: SearchableFields,
+    filterableFields: FilterableFields,
+  });
+
+  queryBuilder.where({
+    memberId,
+    status: GuideStatus.APPROVED,
+    isDeleted: false,
+  });
+
+  const result = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return result;
+};
+
 const getById = async (id: string, userId: string) => {
   //TODO: chack isPaid === true then only allow access if user has paid or is owner , free guides can be accessed by anyone, paid guides can only be accessed by owner or users who have paid
 
@@ -208,10 +280,63 @@ const remove = async (
   });
 };
 
+const submitForReview = async (
+  id: string,
+  userId: string,
+): Promise<{ message: string; data: TravelGuide }> => {
+  // Check if guide exists and belongs to user
+  const guide = await prisma.travelGuide.findUnique({
+    where: { id },
+  });
+
+  if (!guide) {
+    throw new AppError(404, "Travel guide not found");
+  }
+
+  // Check authorization - only owner can submit
+  if (guide.memberId !== userId) {
+    throw new AppError(
+      403,
+      "Forbidden: You can only submit your own travel guides",
+    );
+  }
+
+  // Check current status
+  if (guide.status === GuideStatus.UNDER_REVIEW) {
+    throw new AppError(
+      400,
+      "This guide is already under review. Please wait for admin approval.",
+    );
+  }
+
+  if (guide.status === GuideStatus.APPROVED) {
+    throw new AppError(
+      400,
+      "This guide is already approved. No further submission needed.",
+    );
+  }
+
+  // Update status to UNDER_REVIEW
+  const updatedGuide = await prisma.travelGuide.update({
+    where: { id },
+    data: {
+      status: GuideStatus.UNDER_REVIEW,
+    },
+  });
+
+  return {
+    message: "Travel guide submitted for review successfully",
+    data: updatedGuide as TravelGuide,
+  };
+};
+
 export const TravelGuideService = {
   getAll,
   getById,
+  getMemberDraftGuides,
+  getMyApprovedGuides,
   create,
   update,
+  submitForReview,
   remove,
 };

@@ -2,7 +2,6 @@
 import { NextFunction, Request, Response } from "express";
 import status from "http-status";
 import z from "zod";
-import { envVeriables } from "../config/env";
 import { TErrorResponse, TErrorSources } from "../interface/error.interface";
 import { Prisma } from "../../prisma/generated/prisma/client";
 import {
@@ -26,7 +25,7 @@ export const globalErrorHandler = async (
   //     console.log("Error from Global Error Handler", err);
   //   }
 
-  // if(req.file){
+  // if(req.files){
   //     await deleteFileFromCloudinary(req.file.path)
   // }
 
@@ -34,7 +33,7 @@ export const globalErrorHandler = async (
   //     const imageUrls = req.files.map((file) => file.path);
   //     await Promise.all(imageUrls.map(url => deleteFileFromCloudinary(url)));
   // }
-  //   await deleteUploadedFilesFromGlobalErrorHandler(req);
+  // await deleteUploadedFilesFromGlobalErrorHandler(req);
 
   let errorSources: TErrorSources[] = [];
   let statusCode: number = status.INTERNAL_SERVER_ERROR;

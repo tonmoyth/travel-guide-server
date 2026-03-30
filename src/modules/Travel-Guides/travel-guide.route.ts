@@ -13,6 +13,18 @@ import {
 const router = express.Router();
 
 router.get("/", chackAuth(), TravelGuideController.getAll);
+router.get(
+  "/draft-guides",
+  chackAuth(MemberRole.MEMBER),
+  TravelGuideController.getMemberDraftGuides,
+);
+
+router.get(
+  "/my-approved-guides",
+  chackAuth(MemberRole.MEMBER),
+  TravelGuideController.getMyApprovedGuides,
+);
+
 router.get("/:id", chackAuth(), TravelGuideController.getById);
 
 // Create guide with multiple image and video uploads
@@ -31,6 +43,12 @@ router.put(
   validateRequest(TravelGuideValidationSchema.update),
   TravelGuideController.update,
 );
+router.patch(
+  "/:id/submit-for-review",
+  chackAuth(MemberRole.MEMBER),
+  TravelGuideController.submitForReview,
+);
+
 router.delete(
   "/:id",
   chackAuth(MemberRole.MEMBER),

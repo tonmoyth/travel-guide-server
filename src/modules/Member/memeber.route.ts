@@ -8,6 +8,7 @@ import validateRequest from "../../middlewares/validateRequest";
 
 const router = express.Router();
 
+// auth routes
 router.post(
   "/signup",
   validateRequest(MemberValidationSchema.signupValidationSchema),
@@ -47,5 +48,7 @@ router.post(
 router.get("/login/google", MemberController.googleLogin);
 router.get("/google/success", MemberController.googleLoginSuccess);
 router.get("/google/error", MemberController.handleGoogleError);
+
+// member specific routes
 
 export const MemberRoutes = router;

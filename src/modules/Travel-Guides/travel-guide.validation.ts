@@ -16,22 +16,70 @@ export const TravelGuideValidationSchema = {
     description: z.string().min(1, "Description is required"),
     categoryId: z.string().min(1, "Category ID is required"),
     destination: z.string().optional(),
-    itinerary: z.array(ItineraryItemSchema).optional(),
+
+    itinerary: z.preprocess((value) => {
+      if (typeof value === "string" && value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return value;
+        }
+      }
+      return value;
+    }, z.array(ItineraryItemSchema).optional()),
+
     status: z.nativeEnum(GuideStatus).optional().default(GuideStatus.DRAFT),
-    isPaid: z.boolean().optional().default(false),
-    price: z.number().optional(),
-    coverImage: z.string().optional(),
-    // Note: medias are handled separately via file uploads
+
+    isPaid: z.preprocess((value) => {
+      if (typeof value === "string") {
+        return value === "true" || value === "1";
+      }
+      return value;
+    }, z.boolean().optional().default(false)),
+
+    price: z.preprocess((value) => {
+      if (typeof value === "string" && value) {
+        const num = parseFloat(value);
+        return isNaN(num) ? undefined : num;
+      }
+      return value;
+    }, z.number().optional()),
+
+    // Accept both string URLs and file objects from multer
+    coverImage: z.union([z.string().url(), z.any()]).optional(),
   }),
   update: z.object({
     title: z.string().optional(),
     destination: z.string().optional(),
     description: z.string().optional(),
     categoryId: z.string().optional(),
-    itinerary: z.array(ItineraryItemSchema).optional(),
-    status: z.nativeEnum(GuideStatus).optional(),
-    isPaid: z.boolean().optional(),
-    price: z.number().optional(),
+
+    itinerary: z.preprocess((value) => {
+      if (typeof value === "string" && value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return value;
+        }
+      }
+      return value;
+    }, z.array(ItineraryItemSchema).optional()),
+
+    isPaid: z.preprocess((value) => {
+      if (typeof value === "string") {
+        return value === "true" || value === "1";
+      }
+      return value;
+    }, z.boolean().optional()),
+
+    price: z.preprocess((value) => {
+      if (typeof value === "string" && value) {
+        const num = parseFloat(value);
+        return isNaN(num) ? undefined : num;
+      }
+      return value;
+    }, z.number().optional()),
+
     coverImage: z.string().optional(),
   }),
 };

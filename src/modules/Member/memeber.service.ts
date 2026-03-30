@@ -2,6 +2,17 @@ import { auth } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 import AppError from "../../errors/AppError";
 import { JwtPayload } from "jsonwebtoken";
+import { GuideStatus, Prisma } from "../../../prisma/generated/prisma/browser";
+import { QueryBuilder } from "../../utils/queryBuilder";
+import {
+  IQueryParams,
+  IQueryResult,
+} from "../../interface/queryBuilder.interface";
+import { TravelGuide } from "../Travel-Guides/travel-guide.interface";
+import {
+  SearchableFields,
+  FilterableFields,
+} from "../Travel-Guides/travel-guide.constant";
 
 import {
   TAuthResponse,
@@ -236,6 +247,43 @@ export const getCurrentMember = async (userId: string): Promise<TMember> => {
   };
 };
 
+export const getDraftGuides = async (
+  memberId: string,
+  query: IQueryParams = {},
+): Promise<IQueryResult<TravelGuide>> => {
+  // restrict to the member's own drafts only
+  const safeQuery = { ...query };
+  delete (safeQuery as any).status;
+  delete (safeQuery as any).memberId;
+  delete (safeQuery as any).isDeleted;
+
+  const queryBuilder = new QueryBuilder<
+    TravelGuide,
+    Prisma.TravelGuideWhereInput,
+    Prisma.TravelGuideInclude
+  >(prisma.travelGuide, safeQuery, {
+    searchableFields: SearchableFields,
+    filterableFields: FilterableFields,
+  });
+
+  queryBuilder.where({
+    memberId,
+    status: GuideStatus.DRAFT,
+    isDeleted: false,
+  });
+
+  const result = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return result;
+};
+
 const changePassword = async (
   payload: {
     currentPassword: string;
@@ -252,7 +300,6 @@ const changePassword = async (
       user: true,
     },
   });
-  console.log("Session record for change password:", sessionRecord);
 
   if (!sessionRecord || !sessionRecord.user) {
     throw new AppError(401, "Invalid session token.");

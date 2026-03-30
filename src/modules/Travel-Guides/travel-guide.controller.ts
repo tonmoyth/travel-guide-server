@@ -35,6 +35,36 @@ const getById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getMemberDraftGuides = catchAsync(async (req: Request, res: Response) => {
+  const memberId = req.user!.id;
+
+  const data = await TravelGuideService.getMemberDraftGuides(
+    memberId,
+    req.query as any,
+  );
+
+  res.status(200).json({
+    success: true,
+    message: "Draft travel guides fetched successfully",
+    data,
+  });
+});
+
+const getMyApprovedGuides = catchAsync(async (req: Request, res: Response) => {
+  const memberId = req.user!.id;
+
+  const data = await TravelGuideService.getMyApprovedGuides(
+    memberId,
+    req.query as any,
+  );
+
+  res.status(200).json({
+    success: true,
+    message: "Approved travel guides fetched successfully",
+    data,
+  });
+});
+
 const create = catchAsync(async (req: Request, res: Response) => {
   const memberId = req.user!.id;
 
@@ -140,9 +170,10 @@ const update = catchAsync(async (req: Request, res: Response) => {
   }
 
   // Parse JSON fields if they exist
-  if (payload.itinerary) {
-    payload.itinerary = JSON.parse(payload.itinerary);
-  }
+  // if (payload.itinerary) {
+  //   payload.itinerary = JSON.parse(payload.itinerary);
+  // }
+  console.log("Update payload after parsing:", payload);
 
   const data = await TravelGuideService.update(id, payload, userId, userRole);
 
@@ -150,6 +181,19 @@ const update = catchAsync(async (req: Request, res: Response) => {
     success: true,
     message: "Travel guide updated successfully",
     data,
+  });
+});
+
+const submitForReview = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id as string;
+  const userId = req.user!.id;
+
+  const result = await TravelGuideService.submitForReview(id, userId);
+
+  res.status(200).json({
+    success: true,
+    message: result.message,
+    data: result.data,
   });
 });
 
@@ -166,7 +210,10 @@ const remove = catchAsync(async (req: Request, res: Response) => {
 export const TravelGuideController = {
   getAll,
   getById,
+  getMemberDraftGuides,
+  getMyApprovedGuides,
   create,
   update,
+  submitForReview,
   remove,
 };

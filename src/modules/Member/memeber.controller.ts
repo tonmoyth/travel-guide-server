@@ -22,6 +22,7 @@ const memberSignup = catchAsync(async (req: Request, res: Response) => {
     message: "Member created successfully",
     data: {
       user: user,
+      token,
       accessToken,
       refreshToken,
     },
@@ -41,6 +42,7 @@ const memberLogin = catchAsync(async (req: Request, res: Response) => {
     message: "Login successful",
     data: {
       user: user,
+      token,
       accessToken,
       refreshToken,
     },
