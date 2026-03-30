@@ -12,7 +12,7 @@ import {
 
 const router = express.Router();
 
-router.get("/", chackAuth(), TravelGuideController.getAll);
+router.get("/", TravelGuideController.getAll);
 router.get(
   "/draft-guides",
   chackAuth(MemberRole.MEMBER),
@@ -23,6 +23,12 @@ router.get(
   "/my-approved-guides",
   chackAuth(MemberRole.MEMBER),
   TravelGuideController.getMyApprovedGuides,
+);
+
+router.get(
+  "/my-under-review-guides",
+  chackAuth(MemberRole.MEMBER),
+  TravelGuideController.getMyUnderReviewGuides,
 );
 
 router.get("/:id", chackAuth(), TravelGuideController.getById);

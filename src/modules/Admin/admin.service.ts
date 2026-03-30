@@ -4,6 +4,15 @@ import {
   GuideReviewStatus,
   GuideStatus,
 } from "../../../prisma/generated/prisma/enums";
+import {
+  IQueryParams,
+  IQueryResult,
+} from "../../interface/queryBuilder.interface";
+import { QueryBuilder } from "../../utils/queryBuilder";
+import {
+  MemberSearchableFields,
+  MemberFilterableFields,
+} from "./admin.constant";
 
 interface FeedbackData {
   feedback?: string;
@@ -76,6 +85,46 @@ const updateGuideStatus = async (
   ]);
 };
 
+const getAllMembers = async (
+  query: IQueryParams = {},
+): Promise<IQueryResult<any>> => {
+  const queryBuilder = new QueryBuilder(prisma.user, query, {
+    searchableFields: MemberSearchableFields,
+    filterableFields: MemberFilterableFields,
+  });
+
+  queryBuilder.where({ isDeleted: false });
+
+  const results = await queryBuilder
+    .search()
+    .filter()
+    .include({
+      guides: {
+        where: { isDeleted: false },
+        select: {
+          id: true,
+          title: true,
+          status: true,
+          createdAt: true,
+        },
+      },
+      _count: {
+        select: {
+          guides: true,
+          comments: true,
+          votes: true,
+        },
+      },
+    })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return results;
+};
+
 export const AdminService = {
   updateGuideStatus,
+  getAllMembers,
 };

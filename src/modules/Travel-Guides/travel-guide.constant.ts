@@ -2,7 +2,7 @@ export const TravelGuideConstants = {
   defaultPageSize: 10,
 };
 
-export const SearchableFields = ["title", "description", "itinerary"];
+export const SearchableFields = ["title", "description"];
 
 export const FilterableFields = [
   "status",

@@ -67,7 +67,7 @@ const memberGetCurrent = catchAsync(async (req: Request, res: Response) => {
 });
 
 const logout = catchAsync(async (req: Request, res: Response) => {
-  const sessionToken = req.cookies["better-auth.session-token"];
+  const sessionToken = req.cookies["better-auth.session_token"];
 
   if (!sessionToken) {
     throw new AppError(
@@ -204,7 +204,7 @@ const handleGoogleError = catchAsync(async (req: Request, res: Response) => {
 // TODO:
 const changePassword = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
-  const sessionToken = req.cookies["better-auth.session-token"];
+  const sessionToken = req.cookies["better-auth.session_token"];
 
   if (!sessionToken) {
     throw new AppError(401, "Session token is required to change password.");

@@ -14,8 +14,6 @@ import { QueryBuilder } from "../../utils/queryBuilder";
 import { SearchableFields, FilterableFields } from "./travel-guide.constant";
 
 const getAll = async (
-  userId: string,
-  userRole: string,
   query: IQueryParams = {},
 ): Promise<IQueryResult<TravelGuide>> => {
   const queryBuilder = new QueryBuilder<
@@ -27,7 +25,7 @@ const getAll = async (
     filterableFields: FilterableFields,
   });
 
-  queryBuilder.where({ isDeleted: false });
+  queryBuilder.where({ isDeleted: false, status: GuideStatus.APPROVED });
 
   // if (userRole === MemberRole.MEMBER) {
   //   queryBuilder.where({ memberId: userId });
@@ -102,6 +100,42 @@ const getMyApprovedGuides = async (
   queryBuilder.where({
     memberId,
     status: GuideStatus.APPROVED,
+    isDeleted: false,
+  });
+
+  const result = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return result;
+};
+
+const getMyUnderReviewGuides = async (
+  memberId: string,
+  query: IQueryParams = {},
+): Promise<IQueryResult<TravelGuide>> => {
+  const safeQuery = { ...query };
+  delete (safeQuery as any).status;
+  delete (safeQuery as any).memberId;
+  delete (safeQuery as any).isDeleted;
+
+  const queryBuilder = new QueryBuilder<
+    TravelGuide,
+    Prisma.TravelGuideWhereInput,
+    Prisma.TravelGuideInclude
+  >(prisma.travelGuide, safeQuery, {
+    searchableFields: SearchableFields,
+    filterableFields: FilterableFields,
+  });
+
+  queryBuilder.where({
+    memberId,
+    status: GuideStatus.UNDER_REVIEW,
     isDeleted: false,
   });
 
@@ -335,6 +369,7 @@ export const TravelGuideService = {
   getById,
   getMemberDraftGuides,
   getMyApprovedGuides,
+  getMyUnderReviewGuides,
   create,
   update,
   submitForReview,

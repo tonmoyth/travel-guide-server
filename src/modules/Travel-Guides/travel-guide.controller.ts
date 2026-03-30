@@ -9,13 +9,8 @@ import {
 } from "../../utils/fileUploadHelper";
 
 const getAll = catchAsync(async (req: Request, res: Response) => {
-  const userId = req.user!.id;
-  const userRole = req.user!.role;
-  const data = await TravelGuideService.getAll(
-    userId,
-    userRole,
-    req.query as any,
-  );
+  console.log("Received query parameters:", req.query);
+  const data = await TravelGuideService.getAll(req.query as any);
   res.status(200).json({
     success: true,
     message: "Travel guides retrieved successfully",
@@ -64,6 +59,23 @@ const getMyApprovedGuides = catchAsync(async (req: Request, res: Response) => {
     data,
   });
 });
+
+const getMyUnderReviewGuides = catchAsync(
+  async (req: Request, res: Response) => {
+    const memberId = req.user!.id;
+
+    const data = await TravelGuideService.getMyUnderReviewGuides(
+      memberId,
+      req.query as any,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Under review travel guides fetched successfully",
+      data,
+    });
+  },
+);
 
 const create = catchAsync(async (req: Request, res: Response) => {
   const memberId = req.user!.id;
@@ -212,6 +224,7 @@ export const TravelGuideController = {
   getById,
   getMemberDraftGuides,
   getMyApprovedGuides,
+  getMyUnderReviewGuides,
   create,
   update,
   submitForReview,
