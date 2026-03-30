@@ -168,8 +168,49 @@ const updateMemberStatus = async (
   };
 };
 
+const updateMemberRole = async (
+  memberId: string,
+  role: string,
+): Promise<any> => {
+  // Validate member exists
+  const member = await prisma.user.findUnique({
+    where: { id: memberId },
+  });
+
+  if (!member) {
+    throw new AppError(404, "Member not found");
+  }
+
+  // Validate role
+  const normalizedRole = role.toUpperCase();
+  if (normalizedRole !== "ADMIN" && normalizedRole !== "MEMBER") {
+    throw new AppError(400, "Invalid role. Use ADMIN or MEMBER.");
+  }
+
+  // Map string to enum value
+  const roleValue =
+    normalizedRole === "ADMIN" ? MemberRole.ADMIN : MemberRole.MEMBER;
+
+  const updatedMember = await prisma.user.update({
+    where: { id: memberId },
+    data: {
+      role: roleValue,
+    },
+  });
+
+  return {
+    id: updatedMember.id,
+    name: updatedMember.name,
+    email: updatedMember.email,
+    role: updatedMember.role,
+    status: (updatedMember as any).status || "ACTIVE", // Fallback if status field doesn't exist
+    updatedAt: updatedMember.updatedAt,
+  };
+};
+
 export const AdminService = {
   updateGuideStatus,
   getAllMembers,
   updateMemberStatus,
+  updateMemberRole,
 };

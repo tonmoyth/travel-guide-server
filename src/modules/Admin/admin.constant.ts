@@ -7,6 +7,7 @@ export const MemberSearchableFields = ["name", "email", "bio"];
 export const MemberFilterableFields = [
   "role",
   "gender",
+  "status",
   "emailVerified",
   "isDeleted",
   "createdAt",

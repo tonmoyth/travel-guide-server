@@ -27,9 +27,109 @@ const getAll = async (
 
   queryBuilder.where({ isDeleted: false, status: GuideStatus.APPROVED });
 
-  // if (userRole === MemberRole.MEMBER) {
-  //   queryBuilder.where({ memberId: userId });
-  // }
+  const results = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return results;
+};
+
+const getAllForAdmin = async (
+  query: IQueryParams = {},
+): Promise<IQueryResult<TravelGuide>> => {
+  const queryBuilder = new QueryBuilder<
+    TravelGuide,
+    Prisma.TravelGuideWhereInput,
+    Prisma.TravelGuideInclude
+  >(prisma.travelGuide, query, {
+    searchableFields: SearchableFields,
+    filterableFields: FilterableFields,
+  });
+
+  queryBuilder.where({ isDeleted: false });
+
+  const results = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return results;
+};
+
+const getRejectedGuides = async (
+  query: IQueryParams = {},
+): Promise<IQueryResult<TravelGuide>> => {
+  const queryBuilder = new QueryBuilder<
+    TravelGuide,
+    Prisma.TravelGuideWhereInput,
+    Prisma.TravelGuideInclude
+  >(prisma.travelGuide, query, {
+    searchableFields: SearchableFields,
+    filterableFields: FilterableFields,
+  });
+
+  queryBuilder.where({ isDeleted: false, status: GuideStatus.REJECTED });
+
+  const results = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return results;
+};
+
+const getUnderReviewGuides = async (
+  query: IQueryParams = {},
+): Promise<IQueryResult<TravelGuide>> => {
+  const queryBuilder = new QueryBuilder<
+    TravelGuide,
+    Prisma.TravelGuideWhereInput,
+    Prisma.TravelGuideInclude
+  >(prisma.travelGuide, query, {
+    searchableFields: SearchableFields,
+    filterableFields: FilterableFields,
+  });
+
+  queryBuilder.where({ isDeleted: false, status: GuideStatus.UNDER_REVIEW });
+
+  const results = await queryBuilder
+    .search()
+    .filter()
+    .include({ guideMedia: true, votes: true, comments: true, category: true })
+    .paginate()
+    .sort()
+    .fields()
+    .execute();
+
+  return results;
+};
+
+const getApprovedGuides = async (
+  query: IQueryParams = {},
+): Promise<IQueryResult<TravelGuide>> => {
+  const queryBuilder = new QueryBuilder<
+    TravelGuide,
+    Prisma.TravelGuideWhereInput,
+    Prisma.TravelGuideInclude
+  >(prisma.travelGuide, query, {
+    searchableFields: SearchableFields,
+    filterableFields: FilterableFields,
+  });
+
+  queryBuilder.where({ isDeleted: false, status: GuideStatus.APPROVED });
 
   const results = await queryBuilder
     .search()
@@ -366,6 +466,10 @@ const submitForReview = async (
 
 export const TravelGuideService = {
   getAll,
+  getAllForAdmin,
+  getRejectedGuides,
+  getUnderReviewGuides,
+  getApprovedGuides,
   getById,
   getMemberDraftGuides,
   getMyApprovedGuides,

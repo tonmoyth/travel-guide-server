@@ -18,6 +18,12 @@ router.patch(
   AdminController.updateMemberStatus,
 );
 
+router.patch(
+  "/members/:id/role",
+  chackAuth(MemberRole.ADMIN),
+  AdminController.updateMemberRole,
+);
+
 router.put(
   "/update-guide-status/:id",
   chackAuth(MemberRole.ADMIN),

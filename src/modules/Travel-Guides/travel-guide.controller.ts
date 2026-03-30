@@ -18,6 +18,46 @@ const getAll = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAllForAdmin = catchAsync(async (req: Request, res: Response) => {
+  console.log("Received query parameters for admin:", req.query);
+  const data = await TravelGuideService.getAllForAdmin(req.query as any);
+  res.status(200).json({
+    success: true,
+    message: "All travel guides retrieved successfully",
+    data,
+  });
+});
+
+const getRejectedGuides = catchAsync(async (req: Request, res: Response) => {
+  console.log("Received query parameters for rejected guides:", req.query);
+  const data = await TravelGuideService.getRejectedGuides(req.query as any);
+  res.status(200).json({
+    success: true,
+    message: "Rejected travel guides retrieved successfully",
+    data,
+  });
+});
+
+const getUnderReviewGuides = catchAsync(async (req: Request, res: Response) => {
+  console.log("Received query parameters for under review guides:", req.query);
+  const data = await TravelGuideService.getUnderReviewGuides(req.query as any);
+  res.status(200).json({
+    success: true,
+    message: "Under review travel guides retrieved successfully",
+    data,
+  });
+});
+
+const getApprovedGuides = catchAsync(async (req: Request, res: Response) => {
+  console.log("Received query parameters for approved guides:", req.query);
+  const data = await TravelGuideService.getApprovedGuides(req.query as any);
+  res.status(200).json({
+    success: true,
+    message: "Approved travel guides retrieved successfully",
+    data,
+  });
+});
+
 const getById = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id as string;
   const userId = req.user!.id;
@@ -221,6 +261,10 @@ const remove = catchAsync(async (req: Request, res: Response) => {
 
 export const TravelGuideController = {
   getAll,
+  getAllForAdmin,
+  getRejectedGuides,
+  getUnderReviewGuides,
+  getApprovedGuides,
   getById,
   getMemberDraftGuides,
   getMyApprovedGuides,

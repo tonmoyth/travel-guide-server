@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { catchAsync } from "../../shared";
 import { AdminService } from "./admin.service";
+import AppError from "../../errors/AppError";
 
 const updateGuideStatus = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id as string;
@@ -42,8 +43,26 @@ const updateMemberStatus = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateMemberRole = catchAsync(async (req: Request, res: Response) => {
+  const memberId = req.params.id as string;
+  const { role } = req.body;
+
+  if (!role) {
+    throw new AppError(400, "Role is required");
+  }
+
+  const data = await AdminService.updateMemberRole(memberId, role);
+
+  res.status(200).json({
+    success: true,
+    message: "Member role updated successfully",
+    data,
+  });
+});
+
 export const AdminController = {
   updateGuideStatus,
   getAllMembers,
   updateMemberStatus,
+  updateMemberRole,
 };
