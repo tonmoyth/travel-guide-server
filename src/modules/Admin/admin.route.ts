@@ -12,6 +12,12 @@ router.get(
   AdminController.getAllMembers,
 );
 
+router.patch(
+  "/members/:id",
+  chackAuth(MemberRole.ADMIN),
+  AdminController.updateMemberStatus,
+);
+
 router.put(
   "/update-guide-status/:id",
   chackAuth(MemberRole.ADMIN),

@@ -56,6 +56,13 @@ export type EnumMemberRoleFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumMemberRoleFilter<$PrismaModel> | $Enums.MemberRole
 }
 
+export type EnumMemberStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.MemberStatus | Prisma.EnumMemberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MemberStatus[] | Prisma.ListEnumMemberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MemberStatus[] | Prisma.ListEnumMemberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMemberStatusFilter<$PrismaModel> | $Enums.MemberStatus
+}
+
 export type EnumMemberGenderNullableFilter<$PrismaModel = never> = {
   equals?: $Enums.MemberGender | Prisma.EnumMemberGenderFieldRefInput<$PrismaModel> | null
   in?: $Enums.MemberGender[] | Prisma.ListEnumMemberGenderFieldRefInput<$PrismaModel> | null
@@ -142,6 +149,16 @@ export type EnumMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumMemberRoleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumMemberRoleFilter<$PrismaModel>
+}
+
+export type EnumMemberStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MemberStatus | Prisma.EnumMemberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MemberStatus[] | Prisma.ListEnumMemberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MemberStatus[] | Prisma.ListEnumMemberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMemberStatusWithAggregatesFilter<$PrismaModel> | $Enums.MemberStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMemberStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMemberStatusFilter<$PrismaModel>
 }
 
 export type EnumMemberGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -412,6 +429,13 @@ export type NestedEnumMemberRoleFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumMemberRoleFilter<$PrismaModel> | $Enums.MemberRole
 }
 
+export type NestedEnumMemberStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.MemberStatus | Prisma.EnumMemberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MemberStatus[] | Prisma.ListEnumMemberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MemberStatus[] | Prisma.ListEnumMemberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMemberStatusFilter<$PrismaModel> | $Enums.MemberStatus
+}
+
 export type NestedEnumMemberGenderNullableFilter<$PrismaModel = never> = {
   equals?: $Enums.MemberGender | Prisma.EnumMemberGenderFieldRefInput<$PrismaModel> | null
   in?: $Enums.MemberGender[] | Prisma.ListEnumMemberGenderFieldRefInput<$PrismaModel> | null
@@ -513,6 +537,16 @@ export type NestedEnumMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumMemberRoleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumMemberRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumMemberStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MemberStatus | Prisma.EnumMemberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MemberStatus[] | Prisma.ListEnumMemberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MemberStatus[] | Prisma.ListEnumMemberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMemberStatusWithAggregatesFilter<$PrismaModel> | $Enums.MemberStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMemberStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMemberStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumMemberGenderNullableWithAggregatesFilter<$PrismaModel = never> = {

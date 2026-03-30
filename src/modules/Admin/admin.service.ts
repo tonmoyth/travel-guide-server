@@ -3,6 +3,8 @@ import { prisma } from "../../lib/prisma";
 import {
   GuideReviewStatus,
   GuideStatus,
+  MemberRole,
+  MemberStatus,
 } from "../../../prisma/generated/prisma/enums";
 import {
   IQueryParams,
@@ -124,7 +126,50 @@ const getAllMembers = async (
   return results;
 };
 
+const updateMemberStatus = async (
+  memberId: string,
+  updateData: { status: string },
+): Promise<any> => {
+  // Validate member exists
+  const member = await prisma.user.findUnique({
+    where: { id: memberId },
+  });
+
+  if (!member) {
+    throw new AppError(404, "Member not found");
+  }
+
+  // Validate status if provided
+  if (updateData.status) {
+    const normalizedStatus = updateData.status.toUpperCase();
+    if (normalizedStatus !== "ACTIVE" && normalizedStatus !== "INACTIVE") {
+      throw new AppError(400, "Invalid status. Use ACTIVE or INACTIVE.");
+    }
+  }
+
+  // Map string to enum value
+  const statusValue =
+    updateData.status.toUpperCase() === "ACTIVE" ? "ACTIVE" : "INACTIVE";
+
+  const updatedMember = await prisma.user.update({
+    where: { id: memberId },
+    data: {
+      status: statusValue as any, // Using 'as any' to bypass TypeScript issues until proper enum is available
+    },
+  });
+
+  return {
+    id: updatedMember.id,
+    name: updatedMember.name,
+    email: updatedMember.email,
+    role: updatedMember.role,
+    status: (updatedMember as any).status || "ACTIVE", // Fallback if status field doesn't exist
+    updatedAt: updatedMember.updatedAt,
+  };
+};
+
 export const AdminService = {
   updateGuideStatus,
   getAllMembers,
+  updateMemberStatus,
 };

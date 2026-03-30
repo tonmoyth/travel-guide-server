@@ -32,6 +32,7 @@ export type UserMinAggregateOutputType = {
   image: string | null
   profilePhoto: string | null
   role: $Enums.MemberRole | null
+  status: $Enums.MemberStatus | null
   bio: string | null
   address: string | null
   gender: $Enums.MemberGender | null
@@ -49,6 +50,7 @@ export type UserMaxAggregateOutputType = {
   image: string | null
   profilePhoto: string | null
   role: $Enums.MemberRole | null
+  status: $Enums.MemberStatus | null
   bio: string | null
   address: string | null
   gender: $Enums.MemberGender | null
@@ -66,6 +68,7 @@ export type UserCountAggregateOutputType = {
   image: number
   profilePhoto: number
   role: number
+  status: number
   bio: number
   address: number
   gender: number
@@ -85,6 +88,7 @@ export type UserMinAggregateInputType = {
   image?: true
   profilePhoto?: true
   role?: true
+  status?: true
   bio?: true
   address?: true
   gender?: true
@@ -102,6 +106,7 @@ export type UserMaxAggregateInputType = {
   image?: true
   profilePhoto?: true
   role?: true
+  status?: true
   bio?: true
   address?: true
   gender?: true
@@ -119,6 +124,7 @@ export type UserCountAggregateInputType = {
   image?: true
   profilePhoto?: true
   role?: true
+  status?: true
   bio?: true
   address?: true
   gender?: true
@@ -209,6 +215,7 @@ export type UserGroupByOutputType = {
   image: string | null
   profilePhoto: string | null
   role: $Enums.MemberRole
+  status: $Enums.MemberStatus
   bio: string | null
   address: string | null
   gender: $Enums.MemberGender | null
@@ -247,6 +254,7 @@ export type UserWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null
   profilePhoto?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumMemberRoleFilter<"User"> | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFilter<"User"> | $Enums.MemberStatus
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   address?: Prisma.StringNullableFilter<"User"> | string | null
   gender?: Prisma.EnumMemberGenderNullableFilter<"User"> | $Enums.MemberGender | null
@@ -272,6 +280,7 @@ export type UserOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -300,6 +309,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"User"> | string | null
   profilePhoto?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumMemberRoleFilter<"User"> | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFilter<"User"> | $Enums.MemberStatus
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   address?: Prisma.StringNullableFilter<"User"> | string | null
   gender?: Prisma.EnumMemberGenderNullableFilter<"User"> | $Enums.MemberGender | null
@@ -325,6 +335,7 @@ export type UserOrderByWithAggregationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -348,6 +359,7 @@ export type UserScalarWhereWithAggregatesInput = {
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   profilePhoto?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumMemberRoleWithAggregatesFilter<"User"> | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusWithAggregatesFilter<"User"> | $Enums.MemberStatus
   bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   gender?: Prisma.EnumMemberGenderNullableWithAggregatesFilter<"User"> | $Enums.MemberGender | null
@@ -365,6 +377,7 @@ export type UserCreateInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -390,6 +403,7 @@ export type UserUncheckedCreateInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -415,6 +429,7 @@ export type UserUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -440,6 +455,7 @@ export type UserUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -465,6 +481,7 @@ export type UserCreateManyInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -482,6 +499,7 @@ export type UserUpdateManyMutationInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -499,6 +517,7 @@ export type UserUncheckedUpdateManyInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -516,6 +535,7 @@ export type UserCountOrderByAggregateInput = {
   image?: Prisma.SortOrder
   profilePhoto?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   address?: Prisma.SortOrder
   gender?: Prisma.SortOrder
@@ -533,6 +553,7 @@ export type UserMaxOrderByAggregateInput = {
   image?: Prisma.SortOrder
   profilePhoto?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   address?: Prisma.SortOrder
   gender?: Prisma.SortOrder
@@ -550,6 +571,7 @@ export type UserMinOrderByAggregateInput = {
   image?: Prisma.SortOrder
   profilePhoto?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   address?: Prisma.SortOrder
   gender?: Prisma.SortOrder
@@ -578,6 +600,10 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type EnumMemberRoleFieldUpdateOperationsInput = {
   set?: $Enums.MemberRole
+}
+
+export type EnumMemberStatusFieldUpdateOperationsInput = {
+  set?: $Enums.MemberStatus
 }
 
 export type NullableEnumMemberGenderFieldUpdateOperationsInput = {
@@ -712,6 +738,7 @@ export type UserCreateWithoutSessionsInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -736,6 +763,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -776,6 +804,7 @@ export type UserUpdateWithoutSessionsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -800,6 +829,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -824,6 +854,7 @@ export type UserCreateWithoutAccountsInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -848,6 +879,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -888,6 +920,7 @@ export type UserUpdateWithoutAccountsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -912,6 +945,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -936,6 +970,7 @@ export type UserCreateWithoutCommentsInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -960,6 +995,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -1000,6 +1036,7 @@ export type UserUpdateWithoutCommentsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1024,6 +1061,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1048,6 +1086,7 @@ export type UserCreateWithoutFavoritesInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -1072,6 +1111,7 @@ export type UserUncheckedCreateWithoutFavoritesInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -1112,6 +1152,7 @@ export type UserUpdateWithoutFavoritesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1136,6 +1177,7 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1160,6 +1202,7 @@ export type UserCreateWithoutGuideReviewsInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -1184,6 +1227,7 @@ export type UserUncheckedCreateWithoutGuideReviewsInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -1224,6 +1268,7 @@ export type UserUpdateWithoutGuideReviewsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1248,6 +1293,7 @@ export type UserUncheckedUpdateWithoutGuideReviewsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1272,6 +1318,7 @@ export type UserCreateWithoutGuidesInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -1296,6 +1343,7 @@ export type UserUncheckedCreateWithoutGuidesInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -1336,6 +1384,7 @@ export type UserUpdateWithoutGuidesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1360,6 +1409,7 @@ export type UserUncheckedUpdateWithoutGuidesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1384,6 +1434,7 @@ export type UserCreateWithoutPurchasesInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -1408,6 +1459,7 @@ export type UserUncheckedCreateWithoutPurchasesInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -1448,6 +1500,7 @@ export type UserUpdateWithoutPurchasesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1472,6 +1525,7 @@ export type UserUncheckedUpdateWithoutPurchasesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1496,6 +1550,7 @@ export type UserCreateWithoutVotesInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -1520,6 +1575,7 @@ export type UserUncheckedCreateWithoutVotesInput = {
   image?: string | null
   profilePhoto?: string | null
   role?: $Enums.MemberRole
+  status?: $Enums.MemberStatus
   bio?: string | null
   address?: string | null
   gender?: $Enums.MemberGender | null
@@ -1560,6 +1616,7 @@ export type UserUpdateWithoutVotesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1584,6 +1641,7 @@ export type UserUncheckedUpdateWithoutVotesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumMemberGenderFieldUpdateOperationsInput | $Enums.MemberGender | null
@@ -1702,6 +1760,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   image?: boolean
   profilePhoto?: boolean
   role?: boolean
+  status?: boolean
   bio?: boolean
   address?: boolean
   gender?: boolean
@@ -1728,6 +1787,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   image?: boolean
   profilePhoto?: boolean
   role?: boolean
+  status?: boolean
   bio?: boolean
   address?: boolean
   gender?: boolean
@@ -1745,6 +1805,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   image?: boolean
   profilePhoto?: boolean
   role?: boolean
+  status?: boolean
   bio?: boolean
   address?: boolean
   gender?: boolean
@@ -1762,6 +1823,7 @@ export type UserSelectScalar = {
   image?: boolean
   profilePhoto?: boolean
   role?: boolean
+  status?: boolean
   bio?: boolean
   address?: boolean
   gender?: boolean
@@ -1771,7 +1833,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "profilePhoto" | "role" | "bio" | "address" | "gender" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "profilePhoto" | "role" | "status" | "bio" | "address" | "gender" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -1806,6 +1868,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     image: string | null
     profilePhoto: string | null
     role: $Enums.MemberRole
+    status: $Enums.MemberStatus
     bio: string | null
     address: string | null
     gender: $Enums.MemberGender | null
@@ -2251,6 +2314,7 @@ export interface UserFieldRefs {
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly profilePhoto: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'MemberRole'>
+  readonly status: Prisma.FieldRef<"User", 'MemberStatus'>
   readonly bio: Prisma.FieldRef<"User", 'String'>
   readonly address: Prisma.FieldRef<"User", 'String'>
   readonly gender: Prisma.FieldRef<"User", 'MemberGender'>

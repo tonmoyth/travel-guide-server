@@ -6,6 +6,7 @@ model User {
     image         String?
     profilePhoto  String?
     role          MemberRole    @default(MEMBER)
+    status        MemberStatus  @default(ACTIVE)
     bio           String?
     address       String?
     gender        MemberGender?

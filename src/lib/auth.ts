@@ -37,6 +37,7 @@ export const auth = betterAuth({
     additionalFields: {
       profilePhoto: { type: "string", required: false },
       role: { type: "string", required: false, defaultValue: "MEMBER" },
+      status: { type: "string", required: false, defaultValue: "ACTIVE" },
       bio: { type: "string", required: false },
       address: { type: "string", required: false },
       gender: { type: "string", required: false },

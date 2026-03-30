@@ -29,7 +29,21 @@ const getAllMembers = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateMemberStatus = catchAsync(async (req: Request, res: Response) => {
+  const memberId = req.params.id as string;
+  const updateData = req.body;
+
+  const data = await AdminService.updateMemberStatus(memberId, updateData);
+
+  res.status(200).json({
+    success: true,
+    message: "Member status updated successfully",
+    data,
+  });
+});
+
 export const AdminController = {
   updateGuideStatus,
   getAllMembers,
+  updateMemberStatus,
 };
