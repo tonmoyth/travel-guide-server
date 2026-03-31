@@ -2,7 +2,12 @@ import { auth } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 import AppError from "../../errors/AppError";
 import { JwtPayload } from "jsonwebtoken";
-import { GuideStatus, Prisma } from "../../../prisma/generated/prisma/browser";
+import {
+  GuideStatus,
+  Prisma,
+  PaymentStatus,
+  GuideReviewStatus,
+} from "../../../prisma/generated/prisma/browser";
 import { QueryBuilder } from "../../utils/queryBuilder";
 import {
   IQueryParams,
@@ -366,6 +371,56 @@ const verifyEmail = async (email: string, otp: string) => {
   }
 };
 
+const getPurchasedGuides = async (userId: string) => {
+  const purchases = await prisma.purchase.findMany({
+    where: {
+      memberId: userId,
+      paymentStatus: PaymentStatus.COMPLETED,
+    },
+    select: {
+      guideId: true,
+    },
+  });
+
+  const guideIds = purchases.map((p) => p.guideId);
+
+  if (guideIds.length === 0) {
+    return [];
+  }
+
+  const guides = await prisma.travelGuide.findMany({
+    where: {
+      id: {
+        in: guideIds,
+      },
+      isDeleted: false,
+    },
+  });
+
+  return guides;
+};
+
+const getRejectedGuides = async (userId: string) => {
+  const rejectedReviews = await prisma.guideReview.findMany({
+    where: {
+      status: GuideReviewStatus.REJECTED,
+      guide: {
+        memberId: userId,
+        isDeleted: false,
+      },
+      isDeleted: false,
+    },
+    include: {
+      guide: true,
+    },
+  });
+
+  return rejectedReviews.map((review) => ({
+    feedback: review.feedback,
+    guide: review.guide,
+  }));
+};
+
 export const MemberService = {
   signup: memberSignUp,
   login: memberLogin,
@@ -375,4 +430,6 @@ export const MemberService = {
   googleLoginSuccess,
   changePassword,
   verifyEmail,
+  getPurchasedGuides,
+  getRejectedGuides,
 };

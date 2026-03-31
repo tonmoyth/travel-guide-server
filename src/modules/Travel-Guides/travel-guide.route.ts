@@ -9,6 +9,7 @@ import {
   uploadGuideMediaWithCover,
   uploadSingleImage,
 } from "../../config/multer";
+import optionalAuth from "../../middlewares/optionalAuth";
 
 const router = express.Router();
 
@@ -32,7 +33,8 @@ router.get(
   TravelGuideController.getMyUnderReviewGuides,
 );
 
-router.get("/:id", chackAuth(), TravelGuideController.getById);
+//
+router.get("/:id", optionalAuth(), TravelGuideController.getById);
 
 // Create guide with multiple image and video uploads
 router.post(

@@ -20,9 +20,12 @@ const getAll = catchAsync(async (req: Request, res: Response) => {
 
 const getById = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id as string;
-  const userId = req.user!.id;
 
-  const data = await TravelGuideService.getById(id, userId);
+  // user may or may not exist
+  const userId = req.user?.id;
+
+  const data = await TravelGuideService.getById(id, userId as string);
+
   res.status(200).json({
     success: true,
     message: "Travel guide retrieved successfully",

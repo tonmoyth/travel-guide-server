@@ -314,6 +314,42 @@ const deleteGuideByAdmin = async (guideId: string): Promise<void> => {
   });
 };
 
+const updateRejectedGuide = async (
+  guideId: string,
+  adminId: string,
+  feedback: string,
+): Promise<void> => {
+  // Check if guide exists
+  const guide = await prisma.travelGuide.findUnique({
+    where: { id: guideId },
+  });
+
+  if (!guide) {
+    throw new AppError(404, "Travel guide not found");
+  }
+
+  // Validate feedback
+  if (!feedback || feedback.trim().length === 0) {
+    throw new AppError(400, "Feedback is required to reject a guide");
+  }
+
+  // Use transaction to create GuideReview and update guide status
+  await prisma.$transaction([
+    prisma.travelGuide.update({
+      where: { id: guideId },
+      data: { status: GuideStatus.REJECTED },
+    }),
+    prisma.guideReview.create({
+      data: {
+        guideId,
+        reviewedBy: adminId,
+        status: GuideReviewStatus.REJECTED,
+        feedback,
+      },
+    }),
+  ]);
+};
+
 export const AdminService = {
   updateGuideStatus,
   getAllMembers,
@@ -323,5 +359,6 @@ export const AdminService = {
   getRejectedGuides,
   getUnderReviewGuides,
   getApprovedGuides,
+  updateRejectedGuide,
   deleteGuideByAdmin,
 };

@@ -239,6 +239,30 @@ const verifyEmail = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getPurchasedGuides = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user!.id;
+
+  const result = await MemberService.getPurchasedGuides(userId);
+
+  res.status(status.OK).json({
+    success: true,
+    message: "Purchased guides retrieved successfully",
+    data: result,
+  });
+});
+
+const getRejectedGuides = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user!.id;
+
+  const result = await MemberService.getRejectedGuides(userId);
+
+  res.status(status.OK).json({
+    success: true,
+    message: "Rejected guides retrieved successfully",
+    data: result,
+  });
+});
+
 export const MemberController = {
   signup: memberSignup,
   login: memberLogin,
@@ -250,4 +274,6 @@ export const MemberController = {
   handleGoogleError,
   changePassword,
   verifyEmail,
+  getPurchasedGuides,
+  getRejectedGuides,
 };

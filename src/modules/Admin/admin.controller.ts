@@ -93,6 +93,7 @@ const getUnderReviewGuides = catchAsync(async (req: Request, res: Response) => {
 const getApprovedGuides = catchAsync(async (req: Request, res: Response) => {
   console.log("Received query parameters for approved guides:", req.query);
   const data = await AdminService.getApprovedGuides(req.query as any);
+  console.log("Approved guides data:", data);
   res.status(200).json({
     success: true,
     message: "Approved travel guides retrieved successfully",
@@ -111,6 +112,24 @@ const deleteGuideByAdmin = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateRejectedGuide = catchAsync(async (req: Request, res: Response) => {
+  const guideId = req.params.id as string;
+  const adminId = req.user?.id as string;
+  const { feedback } = req.body;
+
+  if (!feedback) {
+    throw new AppError(400, "Feedback is required");
+  }
+
+  await AdminService.updateRejectedGuide(guideId, adminId, feedback);
+
+  res.status(200).json({
+    success: true,
+    message: "Guide rejected successfully with review feedback",
+    data: { guideId, status: "REJECTED", feedback },
+  });
+});
+
 export const AdminController = {
   updateGuideStatus,
   getAllMembers,
@@ -121,4 +140,5 @@ export const AdminController = {
   getUnderReviewGuides,
   getApprovedGuides,
   deleteGuideByAdmin,
+  updateRejectedGuide,
 };

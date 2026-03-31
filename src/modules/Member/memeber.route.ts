@@ -50,5 +50,16 @@ router.get("/google/success", MemberController.googleLoginSuccess);
 router.get("/google/error", MemberController.handleGoogleError);
 
 // member specific routes
+router.get(
+  "/purchases",
+  chackAuth(MemberRole.MEMBER, MemberRole.ADMIN),
+  MemberController.getPurchasedGuides,
+);
+
+router.get(
+  "/rejected-guides",
+  chackAuth(MemberRole.MEMBER, MemberRole.ADMIN),
+  MemberController.getRejectedGuides,
+);
 
 export const MemberRoutes = router;

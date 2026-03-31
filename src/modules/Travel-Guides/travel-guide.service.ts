@@ -12,6 +12,7 @@ import {
 } from "../../interface/queryBuilder.interface";
 import { QueryBuilder } from "../../utils/queryBuilder";
 import { SearchableFields, FilterableFields } from "./travel-guide.constant";
+import { truncateText } from "../../shared/trancateText";
 
 const getAll = async (
   query: IQueryParams = {},
@@ -39,31 +40,31 @@ const getAll = async (
   return results;
 };
 
-const getAllForAdmin = async (
-  query: IQueryParams = {},
-): Promise<IQueryResult<TravelGuide>> => {
-  const queryBuilder = new QueryBuilder<
-    TravelGuide,
-    Prisma.TravelGuideWhereInput,
-    Prisma.TravelGuideInclude
-  >(prisma.travelGuide, query, {
-    searchableFields: SearchableFields,
-    filterableFields: FilterableFields,
-  });
+// const getAllForAdmin = async (
+//   query: IQueryParams = {},
+// ): Promise<IQueryResult<TravelGuide>> => {
+//   const queryBuilder = new QueryBuilder<
+//     TravelGuide,
+//     Prisma.TravelGuideWhereInput,
+//     Prisma.TravelGuideInclude
+//   >(prisma.travelGuide, query, {
+//     searchableFields: SearchableFields,
+//     filterableFields: FilterableFields,
+//   });
 
-  queryBuilder.where({ isDeleted: false });
+//   queryBuilder.where({ isDeleted: false });
 
-  const results = await queryBuilder
-    .search()
-    .filter()
-    .include({ guideMedia: true, votes: true, comments: true, category: true })
-    .paginate()
-    .sort()
-    .fields()
-    .execute();
+//   const results = await queryBuilder
+//     .search()
+//     .filter()
+//     .include({ guideMedia: true, votes: true, comments: true, category: true })
+//     .paginate()
+//     .sort()
+//     .fields()
+//     .execute();
 
-  return results;
-};
+//   return results;
+// };
 
 const getMemberDraftGuides = async (
   memberId: string,
@@ -173,13 +174,94 @@ const getMyUnderReviewGuides = async (
   return result;
 };
 
-const getById = async (id: string, userId: string) => {
-  //TODO: chack isPaid === true then only allow access if user has paid or is owner , free guides can be accessed by anyone, paid guides can only be accessed by owner or users who have paid
-
-  // Member can only view their own guides
-  return await prisma.travelGuide.findUnique({
-    where: { id, isDeleted: false, memberId: userId },
+const getById = async (id: string, userId?: string) => {
+  const guide = await prisma.travelGuide.findFirst({
+    where: {
+      id,
+      isDeleted: false,
+    },
+    include: {
+      category: true,
+    },
   });
+
+  // const user = await prisma.user.findUnique({
+  //   where: { id: userId, isDeleted: false },
+  // });
+
+  // if (user?.role === MemberRole.ADMIN) {
+  //   return {
+  //     ...guide,
+  //     locked: false,
+  //   };
+  // }
+
+  if (!guide) {
+    throw new AppError(404, "Guide not found");
+  }
+
+  const isOwner = userId && guide.memberId === userId;
+
+  // 🟢 CASE 1: FREE GUIDE → everyone can see full
+  if (!guide.isPaid) {
+    return {
+      ...guide,
+      locked: false,
+    };
+  }
+
+  // 🔴 CASE 2: PAID GUIDE
+
+  // Owner can see full
+  if (isOwner) {
+    return {
+      ...guide,
+      locked: false,
+    };
+  }
+
+  // If not logged in → only preview
+  if (!userId) {
+    return {
+      id: guide.id,
+      title: guide.title,
+      category: guide.category,
+      isPaid: guide.isPaid,
+      price: guide.price,
+      createdAt: guide.createdAt,
+      description: truncateText(guide.description, 10),
+      locked: true,
+    };
+  }
+
+  // Check purchase
+  const hasPurchased = await prisma.purchase.findFirst({
+    where: {
+      memberId: userId,
+      guideId: id,
+      paymentStatus: "COMPLETED",
+    },
+  });
+
+  // যদি কিনে থাকে → full access
+  if (hasPurchased) {
+    return {
+      ...guide,
+      locked: false,
+    };
+  }
+
+  // ❌ না কিনলে → preview only
+  return {
+    id: guide.id,
+    title: guide.title,
+    category: guide.category,
+    isPaid: guide.isPaid,
+    price: guide.price,
+    createdAt: guide.createdAt,
+    description: truncateText(guide.description, 10),
+    locked: true,
+  };
 };
 
 const create = async (

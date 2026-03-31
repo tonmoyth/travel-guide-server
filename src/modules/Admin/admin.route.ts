@@ -61,4 +61,10 @@ router.delete(
   AdminController.deleteGuideByAdmin,
 );
 
+router.patch(
+  "/rejected-guides/:id",
+  chackAuth(MemberRole.ADMIN),
+  AdminController.updateRejectedGuide,
+);
+
 export const AdminRoutes = router;
