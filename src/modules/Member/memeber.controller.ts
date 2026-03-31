@@ -255,6 +255,7 @@ const getRejectedGuides = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user!.id;
 
   const result = await MemberService.getRejectedGuides(userId);
+  console.log("Rejected guides for user", userId, result);
 
   res.status(status.OK).json({
     success: true,

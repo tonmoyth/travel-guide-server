@@ -130,6 +130,20 @@ const updateRejectedGuide = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getStats = catchAsync(async (req: Request, res: Response) => {
+  const role = req.user?.role as string;
+  const normalizedRole = role.toUpperCase();
+  const userId = req.user?.id;
+
+  const data = await AdminService.getStats(normalizedRole, userId);
+
+  res.status(200).json({
+    success: true,
+    message: `Stats for role: ${normalizedRole}`,
+    data,
+  });
+});
+
 export const AdminController = {
   updateGuideStatus,
   getAllMembers,
@@ -141,4 +155,5 @@ export const AdminController = {
   getApprovedGuides,
   deleteGuideByAdmin,
   updateRejectedGuide,
+  getStats,
 };

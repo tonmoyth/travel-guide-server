@@ -67,4 +67,10 @@ router.patch(
   AdminController.updateRejectedGuide,
 );
 
+router.get(
+  "/stats",
+  chackAuth(MemberRole.ADMIN, MemberRole.MEMBER),
+  AdminController.getStats,
+);
+
 export const AdminRoutes = router;

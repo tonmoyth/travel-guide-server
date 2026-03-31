@@ -350,6 +350,62 @@ const updateRejectedGuide = async (
   ]);
 };
 
+const getStats = async (role: string, userId?: string) => {
+  const normalizedRole = role.toUpperCase();
+
+  if (normalizedRole === "ADMIN") {
+    return await prisma.$transaction(async (tx) => {
+      const [totalUsers, totalGuides, totalCategories, totalPurchases] =
+        await Promise.all([
+          tx.user.count(),
+          tx.travelGuide.count({ where: { isDeleted: false } }),
+          tx.category.count({ where: { isDeleted: false } }),
+          tx.purchase.count(),
+        ]);
+
+      return {
+        totalUsers,
+        totalGuides,
+        totalCategories,
+        totalPurchases,
+      };
+    });
+  }
+
+  if (normalizedRole === "MEMBER") {
+    if (!userId) {
+      throw new AppError(400, "User ID is required for member stats");
+    }
+
+    return await prisma.$transaction(async (tx) => {
+      const [existGuideCount, existPurchasesCount, existRejectedCount] =
+        await Promise.all([
+          tx.travelGuide.count({
+            where: { memberId: userId, isDeleted: false },
+          }),
+          tx.purchase.count({
+            where: { memberId: userId },
+          }),
+          tx.guideReview.count({
+            where: {
+              guide: { memberId: userId },
+              status: GuideReviewStatus.REJECTED,
+              isDeleted: false,
+            },
+          }),
+        ]);
+
+      return {
+        existGuideCount,
+        existPurchasesCount,
+        existRejectedCount,
+      };
+    });
+  }
+
+  throw new AppError(400, "Invalid role for stats. Use ADMIN or MEMBER.");
+};
+
 export const AdminService = {
   updateGuideStatus,
   getAllMembers,
@@ -359,6 +415,7 @@ export const AdminService = {
   getRejectedGuides,
   getUnderReviewGuides,
   getApprovedGuides,
-  updateRejectedGuide,
   deleteGuideByAdmin,
+  updateRejectedGuide,
+  getStats,
 };
