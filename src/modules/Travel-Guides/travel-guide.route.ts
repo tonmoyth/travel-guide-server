@@ -33,6 +33,12 @@ router.get(
   TravelGuideController.getMyUnderReviewGuides,
 );
 
+router.get(
+  "/top-voted",
+  optionalAuth(),
+  TravelGuideController.getTopVotedGuides,
+);
+
 //
 router.get("/:id", optionalAuth(), TravelGuideController.getById);
 
@@ -62,6 +68,12 @@ router.delete(
   "/:id",
   chackAuth(MemberRole.MEMBER),
   TravelGuideController.remove,
+);
+
+router.get(
+  "/top-voted",
+  optionalAuth(),
+  TravelGuideController.getTopVotedGuides,
 );
 
 export const TravelGuideRoutes = router;

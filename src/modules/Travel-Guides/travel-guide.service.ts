@@ -174,6 +174,54 @@ const getMyUnderReviewGuides = async (
   return result;
 };
 
+const getTopVotedGuides = async () => {
+  const guides = await prisma.travelGuide.findMany({
+    where: {
+      isDeleted: false,
+      status: GuideStatus.APPROVED,
+    },
+    include: {
+      category: true,
+      guideMedia: true,
+      votes: true,
+      comments: true,
+      _count: {
+        select: {
+          votes: true,
+        },
+      },
+    },
+    orderBy: {
+      votes: {
+        _count: "desc",
+      },
+    },
+    take: 2,
+  });
+
+  const formatted = guides.map((guide) => {
+    if (guide.isPaid) {
+      return {
+        id: guide.id,
+        title: guide.title,
+        category: guide.category,
+        isPaid: guide.isPaid,
+        price: guide.price,
+        createdAt: guide.createdAt,
+        description: truncateText(guide.description, 10),
+        locked: true,
+      };
+    }
+
+    return {
+      ...guide,
+      locked: false,
+    };
+  });
+
+  return formatted;
+};
+
 const getById = async (id: string, userId?: string) => {
   const guide = await prisma.travelGuide.findFirst({
     where: {
@@ -474,6 +522,7 @@ export const TravelGuideService = {
   getMemberDraftGuides,
   getMyApprovedGuides,
   getMyUnderReviewGuides,
+  getTopVotedGuides,
   create,
   update,
   submitForReview,

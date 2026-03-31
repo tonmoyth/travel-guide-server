@@ -222,6 +222,15 @@ const remove = catchAsync(async (req: Request, res: Response) => {
     .json({ success: true, message: "Travel guide deleted successfully" });
 });
 
+const getTopVotedGuides = catchAsync(async (req: Request, res: Response) => {
+  const data = await TravelGuideService.getTopVotedGuides();
+  res.status(200).json({
+    success: true,
+    message: "Top voted travel guides retrieved successfully",
+    data,
+  });
+});
+
 export const TravelGuideController = {
   getAll,
   getById,
@@ -232,4 +241,5 @@ export const TravelGuideController = {
   update,
   submitForReview,
   remove,
+  getTopVotedGuides,
 };
