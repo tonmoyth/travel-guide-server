@@ -45,7 +45,7 @@ router.get("/:id", optionalAuth(), TravelGuideController.getById);
 // Create guide with multiple image and video uploads
 router.post(
   "/",
-  chackAuth(MemberRole.MEMBER),
+  chackAuth(MemberRole.MEMBER, MemberRole.ADMIN),
   uploadGuideMediaWithCover, // Multiple images, videos, and optional cover image
   validateRequest(TravelGuideValidationSchema.create),
   TravelGuideController.create,
@@ -53,20 +53,20 @@ router.post(
 
 router.put(
   "/:id",
-  chackAuth(MemberRole.MEMBER),
+  chackAuth(MemberRole.MEMBER, MemberRole.ADMIN),
   uploadSingleImage, // Single cover image for update
   validateRequest(TravelGuideValidationSchema.update),
   TravelGuideController.update,
 );
 router.patch(
   "/:id/submit-for-review",
-  chackAuth(MemberRole.MEMBER),
+  chackAuth(MemberRole.MEMBER, MemberRole.ADMIN),
   TravelGuideController.submitForReview,
 );
 
 router.delete(
   "/:id",
-  chackAuth(MemberRole.MEMBER),
+  chackAuth(MemberRole.MEMBER, MemberRole.ADMIN),
   TravelGuideController.remove,
 );
 

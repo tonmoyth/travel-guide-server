@@ -62,6 +62,7 @@ const updateGuideStatus = async (
         data: {
           guideId,
           reviewedBy: reviewerId,
+          isDeleted: false,
           status: GuideReviewStatus.REJECTED,
           feedback: feedbackData.feedback,
         },
@@ -71,19 +72,17 @@ const updateGuideStatus = async (
     return;
   }
 
-  // For APPROVED, update guide status and soft delete any existing rejected reviews
+  // For APPROVED, update guide status and soft delete all existing reviews
   await prisma.$transaction([
     prisma.travelGuide.update({
       where: { id: guideId },
       data: { status: guideStatus },
     }),
-    prisma.guideReview.updateMany({
+    prisma.guideReview.deleteMany({
       where: {
         guideId,
-        status: GuideReviewStatus.REJECTED,
         isDeleted: false,
       },
-      data: { isDeleted: true },
     }),
   ]);
 };
@@ -319,6 +318,7 @@ const updateRejectedGuide = async (
   adminId: string,
   feedback: string,
 ): Promise<void> => {
+  console.log("Updating rejected guide with ID:", guideId);
   // Check if guide exists
   const guide = await prisma.travelGuide.findUnique({
     where: { id: guideId },

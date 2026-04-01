@@ -196,7 +196,7 @@ const getTopVotedGuides = async () => {
         _count: "desc",
       },
     },
-    take: 2,
+    take: 3,
   });
 
   const formatted = guides.map((guide) => {
@@ -205,6 +205,9 @@ const getTopVotedGuides = async () => {
         id: guide.id,
         title: guide.title,
         category: guide.category,
+        coverImage: guide.coverImage,
+        votes: guide._count.votes,
+        comments: guide.comments,
         isPaid: guide.isPaid,
         price: guide.price,
         createdAt: guide.createdAt,

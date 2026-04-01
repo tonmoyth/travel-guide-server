@@ -23,11 +23,10 @@ const getAll = async (query: IQueryParams) => {
     .fields()
     .execute();
 
-  return results;
-  // return await prisma.category.findMany({
-  //   where: { isDeleted: false },
-  //   orderBy: { createdAt: "desc" },
-  // });
+  return await prisma.category.findMany({
+    where: { isDeleted: false },
+    orderBy: { createdAt: "desc" },
+  });
 };
 
 const getById = async (id: string): Promise<Category | null> => {

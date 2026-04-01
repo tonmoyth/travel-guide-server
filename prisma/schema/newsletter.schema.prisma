@@ -1,0 +1,11 @@
+// Newsletter subscription model
+model NewsletterSubscription {
+    id        String   @id @default(cuid())
+    email     String   @unique
+    isDeleted Boolean  @default(false)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([email])
+    @@map("newsletter_subscriptions")
+}

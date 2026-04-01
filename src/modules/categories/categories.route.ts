@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get(
   "/",
-  chackAuth(MemberRole.ADMIN, MemberRole.MEMBER),
+
   CategoryController.getAll,
 );
 

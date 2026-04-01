@@ -61,6 +61,7 @@ export const ModelName = {
   GuideMedia: 'GuideMedia',
   GuideReview: 'GuideReview',
   TravelGuide: 'TravelGuide',
+  NewsletterSubscription: 'NewsletterSubscription',
   Purchase: 'Purchase',
   Vote: 'Vote'
 } as const
@@ -230,6 +231,17 @@ export const TravelGuideScalarFieldEnum = {
 } as const
 
 export type TravelGuideScalarFieldEnum = (typeof TravelGuideScalarFieldEnum)[keyof typeof TravelGuideScalarFieldEnum]
+
+
+export const NewsletterSubscriptionScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NewsletterSubscriptionScalarFieldEnum = (typeof NewsletterSubscriptionScalarFieldEnum)[keyof typeof NewsletterSubscriptionScalarFieldEnum]
 
 
 export const PurchaseScalarFieldEnum = {

@@ -68,6 +68,11 @@ export type GuideReview = Prisma.GuideReviewModel
  */
 export type TravelGuide = Prisma.TravelGuideModel
 /**
+ * Model NewsletterSubscription
+ * 
+ */
+export type NewsletterSubscription = Prisma.NewsletterSubscriptionModel
+/**
  * Model Purchase
  * 
  */
