@@ -14,6 +14,8 @@ const getAll = async (query: IQueryParams) => {
     filterableFields: FilterableFields,
   });
 
+  queryBuilder.where({ isDeleted: false });
+
   const results = await queryBuilder
     .search()
     .filter()
@@ -23,10 +25,12 @@ const getAll = async (query: IQueryParams) => {
     .fields()
     .execute();
 
-  return await prisma.category.findMany({
-    where: { isDeleted: false },
-    orderBy: { createdAt: "desc" },
-  });
+  return results;
+
+  // return await prisma.category.findMany({
+  //   where: { isDeleted: false },
+  //   orderBy: { createdAt: "desc" },
+  // });
 };
 
 const getById = async (id: string): Promise<Category | null> => {

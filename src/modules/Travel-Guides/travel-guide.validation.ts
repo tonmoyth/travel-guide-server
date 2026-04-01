@@ -30,6 +30,15 @@ export const TravelGuideValidationSchema = {
 
     status: z.nativeEnum(GuideStatus).optional().default(GuideStatus.DRAFT),
 
+    medias: z
+      .array(
+        z.object({
+          type: z.enum(["IMAGE", "VIDEO", "PDF"]),
+          url: z.string().url("Invalid media URL"),
+        }),
+      )
+      .optional(),
+
     isPaid: z.preprocess((value) => {
       if (typeof value === "string") {
         return value === "true" || value === "1";
@@ -46,7 +55,7 @@ export const TravelGuideValidationSchema = {
     }, z.number().optional()),
 
     // Accept both string URLs and file objects from multer
-    coverImage: z.union([z.string().url(), z.any()]).optional(),
+    coverImage: z.string().optional(),
   }),
   update: z.object({
     title: z.string().optional(),

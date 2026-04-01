@@ -9,7 +9,7 @@ import { sendEmail } from "../utils/email";
 export const auth = betterAuth({
   baseURL: envVeriables.BETTER_AUTH_URL,
   secret: envVeriables.BETTER_AUTH_SECRET,
-  trustedOrigins: ["http://localhost:3000"],
+  trustedOrigins: [envVeriables.FRONTEND_URL!],
 
   database: prismaAdapter(prisma, {
     provider: "postgresql",

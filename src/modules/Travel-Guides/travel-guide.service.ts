@@ -327,10 +327,6 @@ const create = async (
     );
   }
 
-  if (!data.medias || data.medias.length === 0) {
-    throw new AppError(400, "At least one media file is required");
-  }
-
   // Verify category exists
   const category = await prisma.category.findUnique({
     where: { id: data.categoryId },
@@ -338,6 +334,14 @@ const create = async (
 
   if (!category) {
     throw new AppError(404, "Category not found");
+  }
+
+  // Handle price validation for paid guides
+  if (data.isPaid && (!data.price || data.price <= 0)) {
+    throw new AppError(
+      400,
+      "Price is required and must be greater than 0 for paid guides",
+    );
   }
 
   // Use transaction
@@ -353,25 +357,30 @@ const create = async (
           : JSON.stringify([]),
         status: data.status || GuideStatus.DRAFT,
         isPaid: data.isPaid || false,
-        price: data.price || null,
+        price: data.isPaid ? data.price : null,
         coverImage: data.coverImage || null,
       },
       include: {
         guideMedia: true,
+        category: true,
       },
     });
 
-    const medias = await Promise.all(
-      data.medias.map((media) =>
-        tx.guideMedia.create({
-          data: {
-            guideId: guide.id,
-            type: media.type,
-            url: media.url,
-          },
-        }),
-      ),
-    );
+    // Create medias if provided
+    let medias: any[] = [];
+    if (data.medias && data.medias.length > 0) {
+      medias = await Promise.all(
+        data.medias.map((media) =>
+          tx.guideMedia.create({
+            data: {
+              guideId: guide.id,
+              type: media.type,
+              url: media.url,
+            },
+          }),
+        ),
+      );
+    }
 
     return { ...guide, guideMedia: medias };
   });

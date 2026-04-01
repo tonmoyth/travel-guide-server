@@ -9,11 +9,7 @@ import validateRequest from "../../middlewares/validateRequest";
 
 const router = express.Router();
 
-router.get(
-  "/",
-
-  CategoryController.getAll,
-);
+router.get("/", CategoryController.getAll);
 
 router.get(
   "/:id",

@@ -18,9 +18,9 @@ export type TravelGuideCreateInput = {
   itinerary?: ItineraryItem[];
   status?: GuideStatus;
   isPaid?: boolean;
-  price?: number;
+  price?: number | null;
   coverImage?: string;
-  medias: {
+  medias?: {
     type: "IMAGE" | "VIDEO" | "PDF";
     url: string;
   }[];
