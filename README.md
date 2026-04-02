@@ -30,7 +30,7 @@ TravelGuide Hub is an online community portal where users can share travel guide
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/tonmoyth/travel-guide-server.git
    cd travel_guide_server
    ```
 
@@ -44,11 +44,29 @@ TravelGuide Hub is an online community portal where users can share travel guide
    Create a `.env` file in the root directory with the following variables:
 
    ```
-   DATABASE_URL="postgresql://username:password@localhost:5432/travelguide_db"
-   JWT_SECRET="your-jwt-secret"
-   STRIPE_SECRET_KEY="your-stripe-secret-key"
-   EMAIL_USER="your-email@example.com"
-   EMAIL_PASS="your-email-password"
+   PORT
+   FRONTEND_URL
+   DATABASE_URL
+   BETTER_AUTH_SECRET
+   BETTER_AUTH_URL
+   JWT_SECRET_KEY
+   JWT_EXPIRES_IN
+   JWT_REFRESH_SECRET_KEY
+   JWT_REFRESH_EXPIRES_IN
+   GOOGLE_CLIENT_ID
+   GOOGLE_CLIENT_SECRET
+   GOOGLE_REDIRECT_URI
+   GOOGLE_FRONTEND_URL
+   CLOUDINARY_CLOUD_NAME
+   CLOUDINARY_API_KEY
+   CLOUDINARY_API_SECRET
+   STRIPE_SECRET_KEY
+   STRIPE_WEBHOOK_SECRET
+   EMAIL_SENDER_SMTP_USER
+   EMAIL_SENDER_SMTP_PASS
+   EMAIL_SENDER_SMTP_HOST
+   EMAIL_SENDER_SMTP_PORT
+   EMAIL_SENDER_FROM
    # Add other required environment variables
    ```
 
