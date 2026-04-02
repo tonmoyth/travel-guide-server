@@ -61,7 +61,6 @@ const updateMemberRole = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllForAdmin = catchAsync(async (req: Request, res: Response) => {
-  console.log("Received query parameters for all guides:", req.query);
   const data = await AdminService.getAllForAdmin(req.query as any);
   res.status(200).json({
     success: true,
@@ -71,7 +70,6 @@ const getAllForAdmin = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getRejectedGuides = catchAsync(async (req: Request, res: Response) => {
-  console.log("Received query parameters for rejected guides:", req.query);
   const data = await AdminService.getRejectedGuides(req.query as any);
   res.status(200).json({
     success: true,
@@ -81,7 +79,6 @@ const getRejectedGuides = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getUnderReviewGuides = catchAsync(async (req: Request, res: Response) => {
-  console.log("Received query parameters for under review guides:", req.query);
   const data = await AdminService.getUnderReviewGuides(req.query as any);
   res.status(200).json({
     success: true,
@@ -91,9 +88,8 @@ const getUnderReviewGuides = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getApprovedGuides = catchAsync(async (req: Request, res: Response) => {
-  console.log("Received query parameters for approved guides:", req.query);
   const data = await AdminService.getApprovedGuides(req.query as any);
-  console.log("Approved guides data:", data);
+
   res.status(200).json({
     success: true,
     message: "Approved travel guides retrieved successfully",

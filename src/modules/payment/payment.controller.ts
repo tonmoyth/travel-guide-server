@@ -29,7 +29,6 @@ const createPaymentSession = catchAsync(async (req: Request, res: Response) => {
 
 const handleStripeWebhookEvent = catchAsync(
   async (req: Request, res: Response) => {
-    console.log("Received Stripe webhook event");
     const signature = req.headers["stripe-signature"] as string | undefined;
     const webhookSecret = envVeriables.STRIPE_WEBHOOK_SECRET;
 

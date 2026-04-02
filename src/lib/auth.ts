@@ -3,17 +3,17 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { envVeriables } from "../config/env";
 import { MemberRole } from "../../prisma/generated/prisma/enums";
-import { bearer, emailOTP } from "better-auth/plugins";
+import { bearer, emailOTP, oAuthProxy } from "better-auth/plugins";
 import { sendEmail } from "../utils/email";
 
 export const auth = betterAuth({
-  baseURL: envVeriables.BETTER_AUTH_URL,
-  secret: envVeriables.BETTER_AUTH_SECRET,
-  trustedOrigins: [envVeriables.FRONTEND_URL!],
-
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
+
+  baseURL: envVeriables.FRONTEND_URL,
+  secret: envVeriables.BETTER_AUTH_SECRET,
+  trustedOrigins: [envVeriables.FRONTEND_URL!],
 
   socialProviders: {
     google: {
@@ -47,7 +47,7 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
+    // requireEmailVerification: true,
     minPasswordLength: 6,
   },
 
@@ -57,44 +57,44 @@ export const auth = betterAuth({
     autoSignInAfterVerification: true,
   },
 
-  plugins: [
-    bearer(),
-    emailOTP({
-      overrideDefaultEmailVerification: true,
-      async sendVerificationOTP({ email, otp, type }) {
-        if (type === "email-verification") {
-          const user = await prisma.user.findUnique({ where: { email } });
+  // plugins: [
+  //   bearer(),
+  //   emailOTP({
+  //     overrideDefaultEmailVerification: true,
+  //     async sendVerificationOTP({ email, otp, type }) {
+  //       if (type === "email-verification") {
+  //         const user = await prisma.user.findUnique({ where: { email } });
 
-          if (user && !user.emailVerified) {
-            sendEmail({
-              to: email,
-              subject: "Verify Your Email",
-              templateName: "otp",
-              templateData: {
-                name: user.name,
-                otp,
-              },
-            });
-          }
-        } else if (type === "forget-password") {
-          const user = await prisma.user.findUnique({ where: { email } });
-          if (user) {
-            sendEmail({
-              to: email,
-              subject: "Reset Your Password",
-              templateName: "otp",
-              templateData: {
-                name: user.name,
-                otp,
-              },
-            });
-          }
-        }
-      },
-      expiresIn: 5 * 60, // OTP expires in 5 minutes
-      otpLength: 6, // OTP length of 6 digits
-    }),
-  ],
+  //         if (user && !user.emailVerified) {
+  //           sendEmail({
+  //             to: email,
+  //             subject: "Verify Your Email",
+  //             templateName: "otp",
+  //             templateData: {
+  //               name: user.name,
+  //               otp,
+  //             },
+  //           });
+  //         }
+  //       } else if (type === "forget-password") {
+  //         const user = await prisma.user.findUnique({ where: { email } });
+  //         if (user) {
+  //           sendEmail({
+  //             to: email,
+  //             subject: "Reset Your Password",
+  //             templateName: "otp",
+  //             templateData: {
+  //               name: user.name,
+  //               otp,
+  //             },
+  //           });
+  //         }
+  //       }
+  //     },
+  //     expiresIn: 5 * 60, // OTP expires in 5 minutes
+  //     otpLength: 6, // OTP length of 6 digits
+  //   }),
+  // ],
 
   session: {
     expiresIn: 24 * 60 * 60,
@@ -106,24 +106,27 @@ export const auth = betterAuth({
   },
 
   advanced: {
-    useSecureCookies: false,
     cookies: {
-      state: {
+      session_token: {
+        name: "session_token", // Force this exact name
         attributes: {
-          sameSite: "none",
-          secure: true,
           httpOnly: true,
-          path: "/",
+          secure: true,
+          sameSite: "none",
+          partitioned: true,
         },
       },
-      sessionToken: {
+      state: {
+        name: "session_token", // Force this exact name
         attributes: {
-          sameSite: "none",
-          secure: true,
           httpOnly: true,
-          path: "/",
+          secure: true,
+          sameSite: "none",
+          partitioned: true,
         },
       },
     },
   },
+
+  // plugins: [oAuthProxy()],
 });

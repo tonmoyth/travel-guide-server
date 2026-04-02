@@ -133,13 +133,13 @@ const googleLogin = catchAsync(async (req: Request, res: Response) => {
   const redirectPath = (req.query.redirect as string) || "/dashboard";
   const encodedRedirectPath = encodeURIComponent(redirectPath);
 
-  const callbackURL = `${envVeriables.BETTER_AUTH_URL}/api/v1/members/google/success?redirect=${encodedRedirectPath}`;
-  const errorCallbackURL = `${envVeriables.BETTER_AUTH_URL}/api/v1/members/google/error?redirect=${encodedRedirectPath}`;
+  const callbackURI = `${envVeriables.BETTER_AUTH_URL}/api/v1/auth/google/success?redirect=${encodedRedirectPath}`;
+  const errorCallbackURL = `${envVeriables.BETTER_AUTH_URL}/api/v1/auth/google/error?redirect=${encodedRedirectPath}`;
 
   const socialRedirect = await auth.api.signInSocial({
     body: {
       provider: "google",
-      callbackURL,
+      callbackURL: callbackURI,
       errorCallbackURL,
       disableRedirect: true,
     },
@@ -201,7 +201,6 @@ const handleGoogleError = catchAsync(async (req: Request, res: Response) => {
   res.redirect(`${envVeriables.FRONTEND_URL}/login?error=${error}`);
 });
 
-// TODO:
 const changePassword = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
   const sessionToken = req.cookies["better-auth.session_token"];
@@ -255,7 +254,6 @@ const getRejectedGuides = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user!.id;
 
   const result = await MemberService.getRejectedGuides(userId);
-  console.log("Rejected guides for user", userId, result);
 
   res.status(status.OK).json({
     success: true,

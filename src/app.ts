@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import { notFound } from "./middlewares/notFound";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import { PaymentController } from "./modules/payment/payment.controller";
+import { envVeriables } from "./config/env";
+import path from "path";
 
 const app: Application = express();
 
@@ -17,11 +19,14 @@ app.post(
   PaymentController.handleStripeWebhookEvent,
 );
 
+// app.set("view engine", "ejs");
+// app.set("views", path.resolve(process.cwd(), "src/templates"));
+
 // parsers
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: envVeriables.FRONTEND_URL,
     credentials: true,
   }),
 );

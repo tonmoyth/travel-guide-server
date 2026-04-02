@@ -54,10 +54,7 @@ export const sendEmail = async ({
           contentType: item.contentType,
         })) || [],
     });
-
-    console.log("Email sent: " + info.response);
   } catch (error: any) {
-    console.log("Email sender Error:", error.message);
     throw new AppError(status.INTERNAL_SERVER_ERROR, error.message);
   }
 };

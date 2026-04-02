@@ -9,7 +9,6 @@ import {
 } from "../../utils/fileUploadHelper";
 
 const getAll = catchAsync(async (req: Request, res: Response) => {
-  console.log("Received query parameters:", req.query);
   const data = await TravelGuideService.getAll(req.query as any);
   res.status(200).json({
     success: true,
@@ -99,7 +98,6 @@ const create = catchAsync(async (req: Request, res: Response) => {
   }
 
   const data = await TravelGuideService.create(payload, memberId);
-  console.log("Created travel guide:", data);
 
   res.status(201).json({
     success: true,
@@ -123,7 +121,6 @@ const update = catchAsync(async (req: Request, res: Response) => {
   // if (payload.itinerary) {
   //   payload.itinerary = JSON.parse(payload.itinerary);
   // }
-  console.log("Update payload after parsing:", payload);
 
   const data = await TravelGuideService.update(id, payload, userId, userRole);
 

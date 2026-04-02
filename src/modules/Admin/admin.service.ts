@@ -318,7 +318,6 @@ const updateRejectedGuide = async (
   adminId: string,
   feedback: string,
 ): Promise<void> => {
-  console.log("Updating rejected guide with ID:", guideId);
   // Check if guide exists
   const guide = await prisma.travelGuide.findUnique({
     where: { id: guideId },
