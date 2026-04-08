@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  ChatHistory: 'ChatHistory',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -80,6 +81,17 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const ChatHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  message: 'message',
+  reply: 'reply',
+  createdAt: 'createdAt'
+} as const
+
+export type ChatHistoryScalarFieldEnum = (typeof ChatHistoryScalarFieldEnum)[keyof typeof ChatHistoryScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

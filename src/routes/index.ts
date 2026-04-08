@@ -7,6 +7,7 @@ import { NewsletterRoutes } from "../modules/Newsletter/newsletter.route";
 import { VoteRoutes } from "../modules/Vote/vote.route";
 import { CommentRoutes } from "../modules/comments/comment.route";
 import { PaymentRoutes } from "../modules/payment/payment.route";
+import { AIRoutes } from "../modules/Ai/ai.route";
 
 const router = express.Router();
 
@@ -27,6 +28,9 @@ router.use("/comments", CommentRoutes);
 
 // Payment routes
 router.use("/payments", PaymentRoutes);
+
+// AI routes
+router.use("/ai", AIRoutes);
 
 // Admin routes
 router.use("/admin", AdminRoutes);

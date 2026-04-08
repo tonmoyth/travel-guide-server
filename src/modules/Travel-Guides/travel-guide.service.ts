@@ -196,7 +196,7 @@ const getTopVotedGuides = async () => {
         _count: "desc",
       },
     },
-    take: 3,
+    take: 7,
   });
 
   const formatted = guides.map((guide) => {
@@ -212,6 +212,7 @@ const getTopVotedGuides = async () => {
         price: guide.price,
         createdAt: guide.createdAt,
         description: truncateText(guide.description, 10),
+
         locked: true,
       };
     }
@@ -279,6 +280,7 @@ const getById = async (id: string, userId?: string) => {
       category: guide.category,
       isPaid: guide.isPaid,
       price: guide.price,
+      coverImage: guide.coverImage,
       createdAt: guide.createdAt,
       description: truncateText(guide.description, 10),
       locked: true,
@@ -309,6 +311,7 @@ const getById = async (id: string, userId?: string) => {
     category: guide.category,
     isPaid: guide.isPaid,
     price: guide.price,
+    coverImage: guide.coverImage,
     createdAt: guide.createdAt,
     description: truncateText(guide.description, 10),
     locked: true,

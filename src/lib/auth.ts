@@ -19,10 +19,12 @@ export const auth = betterAuth({
     google: {
       clientId: envVeriables.GOOGLE_CLIENT_ID as string,
       clientSecret: envVeriables.GOOGLE_CLIENT_SECRET as string,
+
       mapProfileToUser: () => {
         return {
           role: MemberRole.MEMBER,
           isDeleted: false,
+          emailVerified: true,
           deletedAt: null,
         };
       },
@@ -128,5 +130,5 @@ export const auth = betterAuth({
     },
   },
 
-  // plugins: [oAuthProxy()],
+  plugins: [oAuthProxy()],
 });

@@ -384,6 +384,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  ChatHistory: 'ChatHistory',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -412,10 +413,84 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "category" | "comment" | "favorite" | "guideMedia" | "guideReview" | "travelGuide" | "newsletterSubscription" | "purchase" | "vote"
+    modelProps: "chatHistory" | "user" | "session" | "account" | "verification" | "category" | "comment" | "favorite" | "guideMedia" | "guideReview" | "travelGuide" | "newsletterSubscription" | "purchase" | "vote"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    ChatHistory: {
+      payload: Prisma.$ChatHistoryPayload<ExtArgs>
+      fields: Prisma.ChatHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ChatHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ChatHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.ChatHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ChatHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.ChatHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.ChatHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.ChatHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ChatHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.ChatHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        update: {
+          args: Prisma.ChatHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ChatHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ChatHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ChatHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.ChatHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.ChatHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChatHistory>
+        }
+        groupBy: {
+          args: Prisma.ChatHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChatHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ChatHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChatHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
     User: {
       payload: Prisma.$UserPayload<ExtArgs>
       fields: Prisma.UserFieldRefs
@@ -1417,6 +1492,17 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const ChatHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  message: 'message',
+  reply: 'reply',
+  createdAt: 'createdAt'
+} as const
+
+export type ChatHistoryScalarFieldEnum = (typeof ChatHistoryScalarFieldEnum)[keyof typeof ChatHistoryScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -1668,6 +1754,20 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime[]'
+ */
+export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -1713,20 +1813,6 @@ export type EnumMemberGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'MemberGender[]'
  */
 export type ListEnumMemberGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MemberGender[]'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime'
- */
-export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime[]'
- */
-export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -1936,6 +2022,7 @@ export type PrismaClientOptions = ({
   comments?: runtime.SqlCommenterPlugin[]
 }
 export type GlobalOmitConfig = {
+  chatHistory?: Prisma.ChatHistoryOmit
   user?: Prisma.UserOmit
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit

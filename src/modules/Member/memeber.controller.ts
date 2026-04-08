@@ -133,8 +133,8 @@ const googleLogin = catchAsync(async (req: Request, res: Response) => {
   const redirectPath = (req.query.redirect as string) || "/dashboard";
   const encodedRedirectPath = encodeURIComponent(redirectPath);
 
-  const callbackURI = `${envVeriables.BETTER_AUTH_URL}/api/v1/auth/google/success?redirect=${encodedRedirectPath}`;
-  const errorCallbackURL = `${envVeriables.BETTER_AUTH_URL}/api/v1/auth/google/error?redirect=${encodedRedirectPath}`;
+  const callbackURI = `${envVeriables.BETTER_AUTH_URL}/api/v1/members/google/success?redirect=${encodedRedirectPath}`;
+  const errorCallbackURL = `${envVeriables.BETTER_AUTH_URL}/api/v1/members/google/error?redirect=${encodedRedirectPath}`;
 
   const socialRedirect = await auth.api.signInSocial({
     body: {
@@ -155,7 +155,7 @@ const googleLogin = catchAsync(async (req: Request, res: Response) => {
 const googleLoginSuccess = catchAsync(async (req: Request, res: Response) => {
   const redirectPath = (req.query.redirect as string) || "/dashboard";
 
-  const session = req.cookies["better-auth.session-token"];
+  const session = req.cookies["better-auth.session_token"];
 
   if (!session) {
     return res.redirect(

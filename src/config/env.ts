@@ -15,10 +15,10 @@ interface IEnvReturnType {
   JWT_REFRESH_SECRET_KEY: string;
   JWT_REFRESH_EXPIRES_IN: string;
   FRONTEND_URL?: string;
-  GOOGLE_CLIENT_ID?: string;
-  GOOGLE_CLIENT_SECRET?: string;
-  GOOGLE_REDIRECT_URI?: string;
-  GOOGLE_FRONTEND_URL?: string;
+  GOOGLE_CLIENT_ID: string;
+  GOOGLE_CLIENT_SECRET: string;
+  GOOGLE_CALLBACK_URL: string;
+  GOOGLE_FRONTEND_URL: string;
   CLOUDINARY_CLOUD_NAME: string;
   CLOUDINARY_API_KEY: string;
   CLOUDINARY_API_SECRET: string;
@@ -31,6 +31,8 @@ interface IEnvReturnType {
     EMAIL_SENDER_SMTP_PORT: string;
     EMAIL_SENDER_FROM: string;
   };
+  OPENROUTER_API_KEY: string;
+  OPENROUTER_BASE_URL: string;
 }
 
 const envConfig = (): IEnvReturnType => {
@@ -46,7 +48,7 @@ const envConfig = (): IEnvReturnType => {
     "FRONTEND_URL",
     "GOOGLE_CLIENT_ID",
     "GOOGLE_CLIENT_SECRET",
-    "GOOGLE_REDIRECT_URI",
+    "GOOGLE_CALLBACK_URL",
     "GOOGLE_FRONTEND_URL",
     "CLOUDINARY_CLOUD_NAME",
     "CLOUDINARY_API_KEY",
@@ -58,6 +60,8 @@ const envConfig = (): IEnvReturnType => {
     "EMAIL_SENDER_SMTP_HOST",
     "EMAIL_SENDER_SMTP_PORT",
     "EMAIL_SENDER_FROM",
+    "OPENROUTER_API_KEY",
+    "OPENROUTER_BASE_URL",
 
     // FRONTEND_URL is optional.
   ];
@@ -88,10 +92,10 @@ const envConfig = (): IEnvReturnType => {
     JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN!,
     JWT_REFRESH_SECRET_KEY: process.env.JWT_REFRESH_SECRET_KEY!,
     FRONTEND_URL: process.env.FRONTEND_URL,
-    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-    GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
-    GOOGLE_FRONTEND_URL: process.env.GOOGLE_FRONTEND_URL,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID!,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET!,
+    GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL!,
+    GOOGLE_FRONTEND_URL: process.env.GOOGLE_FRONTEND_URL!,
     CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME!,
     CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY!,
     CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET!,
@@ -104,6 +108,8 @@ const envConfig = (): IEnvReturnType => {
       EMAIL_SENDER_SMTP_PORT: process.env.EMAIL_SENDER_SMTP_PORT!,
       EMAIL_SENDER_FROM: process.env.EMAIL_SENDER_FROM!,
     },
+    OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY!,
+    OPENROUTER_BASE_URL: process.env.OPENROUTER_BASE_URL!,
   };
 };
 

@@ -24,6 +24,7 @@ model User {
     purchases    Purchase[]
     favorites    Favorite[]
     guideReviews GuideReview[]
+    chatHistories ChatHistory[]
 
     @@unique([email])
     @@map("member")
